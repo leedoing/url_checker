@@ -1,0 +1,25 @@
+.header {
+  position: sticky;
+  top: 1%;
+  .header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    margin-bottom: 15vh;
+    margin-left: 5%;
+    margin-right: 5%;
+    .header__title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #32325d;
+    }
+    .header__nav-list {
+      display: flex;
+      justify-content: space-between;
+      .header__list-item:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+}

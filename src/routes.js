@@ -6,6 +6,7 @@ const JOIN = "/join";
 const LOGIN = "/login";
 const LOGOUT = "/logout";
 const SEARCH = "/search";
+const VERIFY = "/verify";
 
 // Users
 const USERS = "/users";
@@ -25,6 +26,7 @@ const routes = {
   login: LOGIN,
   logout: LOGOUT,
   search: SEARCH,
+  verify: VERIFY,
   users: USERS,
   userDetail: USER_DETAIL,
   purchase: PURCHASE,

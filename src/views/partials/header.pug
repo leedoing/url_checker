@@ -4,7 +4,15 @@ header.header
             a(href=routes.home) URL CHECKER 🚦
         nav.header__nav
             ul.header__nav-list
-                li.header__list-item
-                    a(href=routes.join) Join
-                li.header__list-item
-                    a(href=routes.login) Log In
+                if !loggedUser
+                    li.header__list-item
+                        a(href=routes.join) Join
+                    li.header__list-item
+                        a(href=routes.login) Log In
+                else
+                    li.header__list-item
+                        a(href=routes.users) Add URL
+                    li.header__list-item
+                        a(href=routes.profile) Profile
+                    li.header__list-item
+                        a(href=routes.logout) Log out

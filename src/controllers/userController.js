@@ -19,7 +19,7 @@ var RAND = 0;
 var PASSWD = "global";
 var EMAIL = "global";
 
-export const getJogin = (req, res) => res.render("join", { pageTitle: "join" });
+export const getJoin = (req, res) => res.render("join", { pageTitle: "join" });
 export const postJoin = async (req, res) => {
   const {
     body: { email, password, password2 }
@@ -61,7 +61,7 @@ export const postJoin = async (req, res) => {
             res.status(400);
             res.render("join", {
               pageTitle: "Join",
-              message: "Doesn't match password!"
+              message: "Passwords don't match"
             });
           }
         } else {

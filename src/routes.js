@@ -1,5 +1,3 @@
-import { url } from "inspector";
-
 // Global
 const HOME = "/";
 const JOIN = "/join";
@@ -13,6 +11,10 @@ const USERS = "/users";
 const USER_DETAIL = "/:id";
 const PURCHASE = "/purchase";
 const CHANGE_PASSWORD = "/change-password";
+
+// API Charts
+const CHARTS = "/charts";
+const CHARTS_HOME = "/charts_home";
 
 // URLs
 const URLS = "/urls";
@@ -31,6 +33,8 @@ const routes = {
   userDetail: USER_DETAIL,
   purchase: PURCHASE,
   changePassword: CHANGE_PASSWORD,
+  charts: CHARTS,
+  charts_home: CHARTS_HOME,
   urls: URLS,
   url: URL,
   add_url: ADD_URL,

@@ -1,21 +1,21 @@
 import express from "express";
 import routes from "../routes";
-import { home } from "../controller/urlController";
+import { home } from "../controllers/urlController";
 import {
-  getJogin,
+  getJoin,
   postJoin,
   getLogin,
   postLogin,
   logout,
   getVerify
-} from "../controller/userController";
+} from "../controllers/userController";
 import { onlyPrivate, onlyPublic } from "../middlewares";
 
 const globalRouter = express.Router();
 
 globalRouter.get(routes.home, home);
 
-globalRouter.get(routes.join, onlyPublic, getJogin);
+globalRouter.get(routes.join, onlyPublic, getJoin);
 globalRouter.post(routes.join, onlyPublic, postJoin);
 globalRouter.get(routes.verify, onlyPublic, getVerify);
 

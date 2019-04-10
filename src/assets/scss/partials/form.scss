@@ -1,36 +1,63 @@
-.form-container {
-  width: 100%;
+.global-form {
+  max-width: 41%;
+  min-width: 260px;
+  margin: 10% 39% 5%;
+  background-color: None;
+  padding: 1%;
+  // margin-left: 30%;
+  // margin-right: 30%;
+  input[type="submit"] {
+    cursor: pointer;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
   form {
-    width: 100%;
-    max-width: 320px;
-    margin-bottom: 30px;
-    input:not([type="file"]),
-    .fileUpload {
-      display: block;
-      width: 100%;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      &:not(:last-child) {
-        margin-bottom: 25px;
-      }
-    }
-    textarea {
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      margin-bottom: 25px;
-    }
-    input[type="submit"] {
-      background-color: #3498db;
-      color: white;
-      cursor: pointer;
-      transition: opacity 0.2s ease-in-out;
-    }
+    display: flex;
+    flex-direction: column;
+  }
+  input[type="email"],
+  input[type="password"] {
+    border: 0;
+    background-color: $form;
+    margin: 10px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 14px 10px;
+    width: 250px;
+    outline: none;
+    border-radius: 24px;
+    transition: 0s;
+    color: $main_text;
+  }
+  span {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    top: 1%;
+    margin-bottom: 1em;
+  }
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    width: 280px;
+    border-color: #2ecc71;
+  }
+  input[type="submit"] {
+    border: 0;
+    background: none;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    width: 200px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+  }
+  input[type="submit"]:hover {
+    background: #2ecc71;
   }
   a {
-    max-width: 320px;
-    width: 100%;
+    font-size: 1rem;
   }
 }

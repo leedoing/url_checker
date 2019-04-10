@@ -2,12 +2,10 @@ extends layouts/main
 
 block content
     .login
-        .login__container
-            .login__header
-                a(href=routes.home) URL CHECKER
-            .form-container
-                form(action=routes.login, method="post")
-                    input(type="email", name="email", placeholder="Email", required=true)
-                    input(type="password", name="password", placeholder="Password", required=true)
-                    input(type="submit", value="Log In")
-                a(href=routes.join, method="get") Forget your password?
+        .login-form.global-form
+            span URL CHECKER LOGIN
+            form(action=routes.login, method="post")
+                input(type="email", name="email", placeholder="Email", required=true)
+                input(type="password", name="password", placeholder="Password", required=true)
+                input(type="submit", value="Login")
+            a(href=routes.join, method="get") Forget your password?

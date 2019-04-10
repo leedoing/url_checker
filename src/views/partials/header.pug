@@ -1,18 +1,27 @@
 header.header
-    .header__wrapper
-        h1.header__title
-            a(href=routes.home) URL CHECKER 🚦
-        nav.header__nav
-            ul.header__nav-list
-                if !loggedUser
-                    li.header__list-item
-                        a(href=routes.join) Join
-                    li.header__list-item
-                        a(href=routes.login) Log In
-                else
-                    li.header__list-item
-                        a(href=routes.users) Add URL
-                    li.header__list-item
-                        a(href=routes.profile) Profile
-                    li.header__list-item
-                        a(href=routes.logout) Log out
+    .header__title
+        a(href=routes.home) URL CHECKER 🚦
+    .header__nav
+        ul.header__nav-list
+            if !loggedUser
+                li.header__nav-list-item
+                    a.header__nav-list-item-link(href=routes.join) 
+                        |Join 
+                        i.fas.fa-user-plus
+                li.header__nav-list-item
+                    a.header__nav-list-item-link(href=routes.login)
+                        |Log In 
+                        i.fas.fa-sign-in-alt
+            else
+                li.header__nav-list-item
+                    a.header__nav-list-item-link
+                        |Add URL 
+                        i.fas.fa-file-upload
+                li.header__nav-list-item
+                    a.header__nav-list-item-link(href=routes.profile)
+                        |Profile 
+                        i.fas.fa-address-card
+                li.header__nav-list-item
+                    a.header__nav-list-item-link(href=routes.logout) 
+                        |Log out 
+                        i.far.fa-hand-spock

@@ -2,14 +2,12 @@ extends layouts/main
 
 block content
     .join
-        .join__container
-            .join__header
-                a(href=routes.home) URL CHECKER
-            .form-container
-                form(action=routes.join, method="post")
-                    input(type="email", name="email", placeholder="Email", required=true)
-                    input(type="password", name="password", placeholder="Password", required=true)
-                    input(type="password", name="password2", placeholder="Verify Password", required=true)
-                    input(type="submit", value="Join Now")
+        .join-form.global-form
+            span URL CHECKER JOIN
+            form(action=routes.join, method="post")
+                input(type="email", name="email", placeholder="Email", required=true)
+                input(type="password", name="password", placeholder="Password", required=true)
+                input(type="password", name="password2", placeholder="Verify Password", required=true)
+                input(type="submit", value="Join Now")
             if message
-                h5.bounce.animated.message=message
+            span=message

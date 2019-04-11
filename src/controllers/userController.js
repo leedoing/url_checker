@@ -7,7 +7,6 @@ import passport from "passport";
 
 dotenv.config();
 const hasher = bkfd2Password();
-
 const smtpTransport = nodemailer.createTransport({
   service: "Gmail",
   auth: {

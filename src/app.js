@@ -10,7 +10,7 @@ import session from "express-session";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import urlRouter from "./routers/urlRouter";
-import chartRouter from "./routers/chartRouter";
+import apiRouter from "./routers/apiRouter";
 import passport from "passport";
 import "./passport";
 import connectDynamodb from "connect-dynamodb";
@@ -52,7 +52,7 @@ app.use(localsMiddleware);
 
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
-app.use(routes.charts, chartRouter);
+app.use(routes.api, apiRouter);
 app.use(routes.urls, urlRouter);
 
 export default app;

@@ -1,3 +1,7 @@
 chart.chart
-    .chart__container
-        p Chart
+    if !loggedUser
+        .chart__container(id=`lluckyy77@gmail.com`)
+        span=`publicChart`
+    else
+        .chart__container(id=`${loggedUser.email}`)
+        span=loggedUser.email

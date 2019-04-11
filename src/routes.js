@@ -12,9 +12,11 @@ const USER_DETAIL = "/:id";
 const PURCHASE = "/purchase";
 const CHANGE_PASSWORD = "/change-password";
 
-// API Charts
-const CHARTS = "/charts";
-const CHARTS_HOME = "/charts_home";
+// API
+const API = "/api";
+
+// API CHARTS
+const CHARTS_GET = "/charts/:id/view";
 
 // URLs
 const URLS = "/urls";
@@ -33,8 +35,8 @@ const routes = {
   userDetail: USER_DETAIL,
   purchase: PURCHASE,
   changePassword: CHANGE_PASSWORD,
-  charts: CHARTS,
-  charts_home: CHARTS_HOME,
+  api: API,
+  charts_get: CHARTS_GET,
   urls: URLS,
   url: URL,
   add_url: ADD_URL,

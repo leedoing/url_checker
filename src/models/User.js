@@ -12,12 +12,12 @@ const UserSchema = new dynamoose.Schema({
     required: true
   },
   salt: String,
-  purchase: String,
-  deadLine: Date,
+  purchase: Number,
   urls: [
     {
       name: String,
-      url: String
+      url: String,
+      deadLine: Date
     }
   ]
 });

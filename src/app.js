@@ -54,5 +54,12 @@ app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.api, apiRouter);
 app.use(routes.urls, urlRouter);
+app.use((req, res) => {
+  res.status(404).send("Sorry Not Find Page:)");
+});
+
+app.use((req, res) => {
+  res.status(500).send("Thank you, You Find a Bug! I gonna fix this soon!");
+});
 
 export default app;

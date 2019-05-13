@@ -10,7 +10,8 @@ const UrlSchema = new dynamoose.Schema({
     type: String,
     rangeKey: true
   },
-  aws_resolver: [],
+  aws_resolver_dns: String,
+  aws_resolver_ip: String,
   client_ip: String,
   connect_time: Number,
   header: String,
@@ -23,7 +24,8 @@ const UrlSchema = new dynamoose.Schema({
   starttransfer_time: Number,
   total_time: Number,
   ttl: Number,
-  url: String
+  url: String,
+  name: String
 });
 const model = dynamoose.model("url_checker_urls", UrlSchema);
 

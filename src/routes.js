@@ -16,7 +16,7 @@ const CHANGE_PASSWORD = "/change-password";
 const API = "/api";
 
 // API CHARTS
-const CHARTS_GET = "/charts/:id/view";
+const CHARTS_GET = "/charts/:id/view/:hour";
 
 // URLs
 const URLS = "/urls";

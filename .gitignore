@@ -78,8 +78,8 @@ typings/
 #DynamoDB Local files 
 .dynamodb/ 
 .fusebox/
+.vscode/
 package-lock.json
 uploads
 static
 build
-.vscode

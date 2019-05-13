@@ -1,22 +1,23 @@
+import dotenv from "dotenv";
 import User from "../models/User";
 import routes from "../routes";
 import bkfd2Password from "pbkdf2-password";
-import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import passport from "passport";
 
 dotenv.config();
+
 const hasher = bkfd2Password();
 const smtpTransport = nodemailer.createTransport({
-  service: "Gmail",
+  service: process.env.mail,
   auth: {
-    user: "lluckyy77",
-    pass: "tjdrhd1324"
+    user: process.env.mail_id,
+    pass: process.env.mail_pw
   }
 });
-var RAND = 0;
-var PASSWD = "global";
-var EMAIL = "global";
+let RAND;
+let PASSWD;
+let EMAIL;
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "join" });
 export const postJoin = async (req, res) => {
@@ -36,7 +37,7 @@ export const postJoin = async (req, res) => {
             const host = req.get("host");
             const link = "http://" + req.get("host") + "/verify?id=" + RAND;
             const mailOptions = {
-              to: "lluckyy@gscdn.com",
+              to: email,
               subject: "[URL CHECKER🚦] Please confirm your Email account",
               html:
                 "Please Click on the link to verify your email.<br><a href=" +

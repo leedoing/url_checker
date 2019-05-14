@@ -17,7 +17,7 @@ const UserSchema = new dynamoose.Schema({
     {
       name: String,
       url: String,
-      deadLine: Date
+      deadLine: String
     }
   ]
 });

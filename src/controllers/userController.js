@@ -1,11 +1,11 @@
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 import User from "../models/User";
 import routes from "../routes";
 import bkfd2Password from "pbkdf2-password";
 import nodemailer from "nodemailer";
 import passport from "passport";
 
-dotenv.config();
+// dotenv.config();
 
 const hasher = bkfd2Password();
 const smtpTransport = nodemailer.createTransport({

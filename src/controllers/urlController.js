@@ -4,15 +4,32 @@ import User from "../models/User";
 
 export const home = async (req, res) => {
   let userMeta;
+  console.log(process.env.mail);
+  console.log(req.user.email);
   try {
-    if (!req.user) {
-      userMeta = await User.get("lluckyy77@gmail.com");
+    if (!req.user || req.user.email === process.env.mail) {
+      userMeta = await User.get(process.env.mail);
     } else {
-      userMeta = await User.get(req.user.email);
+      const {
+        user: { user }
+      } = req;
+      userMeta = user;
     }
     console.log(userMeta);
+    res.render("home", { pargeTitle: "Home" });
   } catch (err) {
     console.log(err);
+    res.render("home", { pargeTitle: "Home" });
   }
-  res.render("home", { pageTitle: "Home" });
+  //   try {
+  //     if (!req.user) {
+  //       userMeta = await User.get("lluckyy77@gmail.com");
+  //     } else {
+  //       userMeta = await User.get(req.user.email);
+  //     }
+  //     console.log(userMeta);
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.render("home", { pageTitle: "Home", urls})
+  //   }
 };

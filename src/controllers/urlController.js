@@ -21,6 +21,7 @@ export const home = async (req, res) => {
     console.log(err);
     res.render("home", { pargeTitle: "Home" });
   }
+  console.log(userMeta);
   //   try {
   //     if (!req.user) {
   //       userMeta = await User.get("lluckyy77@gmail.com");

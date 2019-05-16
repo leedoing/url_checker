@@ -1,0 +1,9 @@
+mixin sidebar(urlMeta = {})
+    .sidear
+        .toogle-btn
+        ul
+            if !urlMeta
+                li="N/A"
+            each list in urlMeta
+                each val in list
+                    li=val.name

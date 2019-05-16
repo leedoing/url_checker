@@ -2,7 +2,7 @@ import moment from "moment";
 import routes from "../routes";
 import User from "../models/User";
 import Url from "../models/Url";
-const LOCATIONLIST = ["KR"];
+const LOCATIONLIST = ["KR", "US"];
 
 export const getChart = async (req, res) => {
   const url = req.url.split("/");
@@ -21,12 +21,17 @@ export const getChart = async (req, res) => {
       userMeta = await User.get("lluckyy77@gmail.com");
     }
     LOCATIONLIST.forEach(location => {
-      userMeta.urls.forEach(urls => {
-        const hash = Buffer.from(
-          process.env.secret + email + urls.url + location
-        ).toString("base64");
-        hashList.push(hash);
-      });
+      // userMeta.urls.forEach(urls => {
+      //   const hash = Buffer.from(
+      //     process.env.secret + email + urls.url + location
+      //   ).toString("base64");
+      //   hashList.push(hash);
+      // });
+
+      const hash = Buffer.from(
+        process.env.secret + email + userMeta.urls[0].url + location
+      ).toString("base64");
+      hashList.push(hash);
     });
   } catch (err) {
     console.log(err);

@@ -1,7 +1,16 @@
 extends layouts/main
+include mixins/sidebar
 
 block content
     .home
-        .nav__container
-            p Navigator
+        if urls
+            +sidebar({
+                urlMeta: urls
+            })
+        //- each item in urls
+        //-     +sidebar({
+        //-         name: item.name,
+        //-         url: item.url,
+        //-         deadLine: item.deadLine
+        //-     })
         include ./partials/chart.pug

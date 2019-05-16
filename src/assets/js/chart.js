@@ -2,7 +2,6 @@ import axios from "axios";
 const chartContainer = document.getElementsByClassName("chart__container");
 
 const createCanvas = async data => {
-  console.log(data);
   const canvas_list = new Array();
   const myChart_list = new Array();
   const massChart_list = new Array();
@@ -21,7 +20,7 @@ const createCanvas = async data => {
       } else {
         labels_list.push("0000-00-00T00:00:00");
       }
-      if (data[i][j]["total_time"]) {
+      if (data[i][j]["total_time"] && data[i][j]["http_code"] === 200) {
         data_list.push(data[i][j]["total_time"]);
       } else {
         data_list.push("0");
@@ -52,7 +51,7 @@ const createCanvas = async data => {
           layout: {
             padding: {
               top: 110,
-              bottom: 70
+              bottom: 80
             }
           },
           tooltips: {
@@ -123,13 +122,15 @@ const createCanvas = async data => {
 };
 
 async function init() {
-  if (chartContainer.item(0).id) {
+  if (chartContainer[0]) {
     const email = chartContainer.item(0).id;
     const response = await axios({
       url: `/api/charts/${email}/view/36`,
       method: "GET"
     });
-    createCanvas(response.data);
+    if (!response.data[0].length == 0) {
+      createCanvas(response.data);
+    }
   }
 }
 

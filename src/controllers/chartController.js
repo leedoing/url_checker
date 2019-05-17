@@ -5,9 +5,10 @@ import Url from "../models/Url";
 const LOCATIONLIST = ["KR", "US"];
 
 export const getChart = async (req, res) => {
-  const url = req.url.split("/");
-  const email = url[2];
-  const hours = url[4];
+  const uri = req.url.split("/");
+  const email = uri[2];
+  const url = decodeURIComponent(uri[3]);
+  const hours = uri[5];
   const delay = Number(hours) + 9;
   const hour = moment()
     .subtract(delay, "hours")
@@ -17,21 +18,20 @@ export const getChart = async (req, res) => {
   const resultList = [];
   try {
     let userMeta = await User.get(email);
-    if (!userMeta.urls) {
-      userMeta = await User.get("lluckyy77@gmail.com");
-    }
-    LOCATIONLIST.forEach(location => {
-      // userMeta.urls.forEach(urls => {
-      //   const hash = Buffer.from(
-      //     process.env.secret + email + urls.url + location
-      //   ).toString("base64");
-      //   hashList.push(hash);
-      // });
+    // LOCATIONLIST.forEach(location => {
+    //   const hash = Buffer.from(
+    //     process.env.secret + email + url + location
+    //   ).toString("base64");
+    //   hashList.push(hash);
+    // });
 
-      const hash = Buffer.from(
-        process.env.secret + email + userMeta.urls[0].url + location
-      ).toString("base64");
-      hashList.push(hash);
+    LOCATIONLIST.forEach(location => {
+      userMeta.urls.forEach(urls => {
+        const hash = Buffer.from(
+          process.env.secret + email + urls.url + location
+        ).toString("base64");
+        hashList.push(hash);
+      });
     });
   } catch (err) {
     console.log(err);
@@ -57,8 +57,11 @@ export const getChart = async (req, res) => {
     try {
       for (let i = 0; i < hashList.length; i++) {
         const result = await getData(hashList[i]);
-        await resultList.push(result);
+        if (!result.length == 0) {
+          await resultList.push(result);
+        }
       }
+      // console.log(resultList);
       res.send(resultList);
     } catch (err) {
       res.send(err);
@@ -67,4 +70,3 @@ export const getChart = async (req, res) => {
 
   initGetData();
 };
-// loggedUser.email

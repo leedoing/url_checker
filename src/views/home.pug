@@ -3,14 +3,7 @@ include mixins/sidebar
 
 block content
     .home
-        if urls
-            +sidebar({
-                urlMeta: urls
-            })
-        //- each item in urls
-        //-     +sidebar({
-        //-         name: item.name,
-        //-         url: item.url,
-        //-         deadLine: item.deadLine
-        //-     })
+        +sidebar({
+            urlMeta: urls
+        })
         include ./partials/chart.pug

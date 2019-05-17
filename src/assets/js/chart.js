@@ -50,8 +50,8 @@ const createCanvas = async data => {
         options: {
           layout: {
             padding: {
-              top: 110,
-              bottom: 80
+              top: 100,
+              bottom: 20
             }
           },
           tooltips: {
@@ -65,12 +65,12 @@ const createCanvas = async data => {
                 response_list.push(
                   `Total_time: ${data[i][index]["total_time"]}`
                 );
-                response_list.push(
-                  `aws_resolver_dns: ${data[i][index]["aws_resolver_dns"]}`
-                );
-                response_list.push(
-                  `aws_resolver_ip: ${data[i][index]["aws_resolver_ip"]}`
-                );
+                // response_list.push(
+                //   `aws_resolver_dns: ${data[i][index]["aws_resolver_dns"]}`
+                // );
+                // response_list.push(
+                //   `aws_resolver_ip: ${data[i][index]["aws_resolver_ip"]}`
+                // );
                 response_list.push(`client_ip: ${data[i][index]["client_ip"]}`);
                 response_list.push(`cdn_ip: ${data[i][index]["primary_ip"]}`);
 
@@ -78,8 +78,6 @@ const createCanvas = async data => {
                   response_list.push(header[i]);
                 }
                 return response_list;
-
-                // return [`Total_time: ${label}`];
               }
             }
           },
@@ -100,7 +98,8 @@ const createCanvas = async data => {
                   min: 0,
                   stepSize: 0.1,
                   fontSize: 12,
-                  autoSkip: true
+                  autoSkip: true,
+                  maxTicksLimit: 10
                 }
               }
             ],
@@ -109,8 +108,8 @@ const createCanvas = async data => {
                 ticks: {
                   fontColor: "#D4D5D7",
                   autoSkip: true,
-                  fontSize: 12
-                  // maxTicksLimit: 24,
+                  fontSize: 12,
+                  maxTicksLimit: 36
                 }
               }
             ]
@@ -123,11 +122,14 @@ const createCanvas = async data => {
 
 async function init() {
   if (chartContainer[0]) {
-    const email = chartContainer.item(0).id;
+    const apiMeta = chartContainer.item(0).id.split("||");
+    const id = apiMeta[0];
+    const url = encodeURIComponent(apiMeta[1]);
     const response = await axios({
-      url: `/api/charts/${email}/view/36`,
+      url: `/api/charts/${id}/${url}/view/36`,
       method: "GET"
     });
+    console.log(response);
     if (!response.data[0].length == 0) {
       createCanvas(response.data);
     }

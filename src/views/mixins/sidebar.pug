@@ -1,9 +1,11 @@
 mixin sidebar(urlMeta = {})
-    .sidear
+    .sidebar
         .toogle-btn
         ul
-            if !urlMeta
-                li="N/A"
             each list in urlMeta
-                each val in list
-                    li=val.name
+                if list
+                    each val in list
+                        li(data-tooltip-text=`URL: ${val.url}
+                        DeadLine: ${val.deadLine}`, data-html="true")=val.name
+                else
+                    li='N/A'

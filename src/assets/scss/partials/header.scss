@@ -1,13 +1,15 @@
 header {
+  background-color: #1e1d2e;
+  display: block;
   position: sticky;
-  top: 1px;
+  top: 0px;
   bottom: 65px;
   text-transform: uppercase;
   font-weight: 250;
   display: flex;
   justify-content: space-between;
-  margin-right: 100px;
-  margin-left: 100px;
+  padding-right: 5%;
+  padding-left: 2.5%;
   flex-wrap: wrap;
   .header__title {
     font-size: 1.5rem;

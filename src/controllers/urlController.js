@@ -7,13 +7,21 @@ export const home = async (req, res) => {
   try {
     if (!req.user || req.user.email === process.env.mail) {
       userMeta = await User.get(process.env.mail);
-      res.render("home", { pargeTitle: "Home", urls: userMeta.urls });
+      res.render("home", {
+        pargeTitle: "Home",
+        email: userMeta.email,
+        urls: userMeta.urls
+      });
     } else {
       const {
         user: { email }
       } = req;
       userMeta = await User.get(email);
-      res.render("home", { pargeTitle: "Home", urls: userMeta.urls });
+      res.render("home", {
+        pargeTitle: "Home",
+        email: userMeta.email,
+        urls: userMeta.urls
+      });
     }
   } catch (err) {
     console.log(err);

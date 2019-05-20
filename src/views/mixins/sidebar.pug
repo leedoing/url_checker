@@ -1,11 +1,13 @@
-mixin sidebar(urlMeta = {})
+mixin sidebar(urlsList = {})
     .sidebar
         .toogle-btn
         ul
-            each list in urlMeta
+            each list in urlsList
                 if list
                     each val in list
                         li(data-tooltip-text=`URL: ${val.url}
-                        DeadLine: ${val.deadLine}`, data-html="true")=val.name
+                        DeadLine: ${val.deadLine}`, data-html="true", 
+                        id=`${email}||${val.url}`
+                        class="urlList")=val.name
                 else
                     li='N/A'

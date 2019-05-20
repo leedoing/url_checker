@@ -1,23 +1,12 @@
 import axios from "axios";
 Chart.Tooltip.positioners.custom = function(elements, position) {
-  // if (!elements.length) {
-  //   return false;
-  // }
-  // var offset = 0;
-  // //adjust the offset left or right depending on the event position
-  // if (elements[0]._chart.width / 2 > position.x) {
-  //   offset = 20;
-  // } else {
-  //   offset = -20;
-  // }
   return {
-    // x: position.x + offset,
-    // y: position.y
     x: 7,
     y: 0
   };
 };
 
+const urlList = document.querySelectorAll(".urlList");
 const chartContainer = document.getElementsByClassName("chart__container");
 
 const createCanvas = async data => {
@@ -83,7 +72,6 @@ const createCanvas = async data => {
           tooltips: {
             position: "custom",
             // yAlign: "center",
-            // mode: "average",
             callbacks: {
               label: function(tooltipItem) {
                 const label = tooltipItem.yLabel;
@@ -105,7 +93,6 @@ const createCanvas = async data => {
                 for (let i = 0; i < header.length; i++) {
                   response_list.push(header[i]);
                 }
-                // console.log(response_list);
                 return response_list;
               }
             }
@@ -150,19 +137,38 @@ const createCanvas = async data => {
   }
 };
 
+const clickUrl = event => {
+  event.preventDefault();
+  const targetMeta = event.currentTarget.id;
+  const apiMeta = targetMeta.split("||");
+  const id = apiMeta[0];
+  const url = encodeURIComponent(apiMeta[1]);
+  while (chartContainer[0].hasChildNodes()) {
+    chartContainer[0].removeChild(chartContainer[0].firstChild);
+  }
+  getChart(id, url);
+};
+
+const getChart = async (id, url) => {
+  const response = await axios({
+    url: `/api/charts/${id}/${url}/view/36`,
+    method: "GET"
+  });
+  if (!response.data.length == 0) {
+    createCanvas(response.data);
+  }
+};
+
 async function init() {
   if (chartContainer[0]) {
     const apiMeta = chartContainer.item(0).id.split("||");
     const id = apiMeta[0];
     const url = encodeURIComponent(apiMeta[1]);
-    const response = await axios({
-      url: `/api/charts/${id}/${url}/view/36`,
-      method: "GET"
-    });
-    if (!response.data[0].length == 0) {
-      createCanvas(response.data);
-    }
+    await getChart(id, url);
   }
+  [].forEach.call(urlList, urlList => {
+    urlList.addEventListener("click", clickUrl);
+  });
 }
 
 if (chartContainer) {

@@ -1,41 +1,49 @@
-canvas {
-  width: 40vw;
-  background-color: #27293c;
-  margin: 1%;
-  border-radius: 1rem;
-  -webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
-  -moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
-  box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
-
-  [data-tooltip-text]:active {
-    position: relative;
-    white-space: pre-line;
+.chart {
+  width: 100%;
+  .chart__container {
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: row;
   }
-  [data-tooltip-text]:active:after {
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.8);
-
+  canvas {
+    width: 40vw;
+    background-color: #27293c;
+    margin: 1%;
+    border-radius: 1rem;
     -webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
     -moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
     box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
 
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    [data-tooltip-text]:active {
+      position: relative;
+      white-space: pre-line;
+    }
+    [data-tooltip-text]:active:after {
+      background-color: #000000;
+      background-color: rgba(0, 0, 0, 0.8);
 
-    color: #ffffff;
-    font-size: 1rem;
-    content: attr(data-tooltip-text);
+      -webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+      -moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+      box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
 
-    margin-bottom: 10px;
-    top: 130%;
-    left: 0;
-    padding: 7px 12px;
-    position: absolute;
-    width: auto;
-    min-width: 50px;
-    max-width: 300px;
-    word-wrap: break-word;
-    z-index: 9999;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+
+      color: #ffffff;
+      font-size: 1rem;
+      content: attr(data-tooltip-text);
+
+      margin-bottom: 10px;
+      top: 130%;
+      left: 0;
+      padding: 7px 12px;
+      position: absolute;
+      width: auto;
+      min-width: 50px;
+      max-width: 300px;
+      word-wrap: break-word;
+      z-index: 9999;
+    }
   }
 }

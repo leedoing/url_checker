@@ -1,4 +1,23 @@
 import axios from "axios";
+Chart.Tooltip.positioners.custom = function(elements, position) {
+  // if (!elements.length) {
+  //   return false;
+  // }
+  // var offset = 0;
+  // //adjust the offset left or right depending on the event position
+  // if (elements[0]._chart.width / 2 > position.x) {
+  //   offset = 20;
+  // } else {
+  //   offset = -20;
+  // }
+  return {
+    // x: position.x + offset,
+    // y: position.y
+    x: 7,
+    y: 0
+  };
+};
+
 const chartContainer = document.getElementsByClassName("chart__container");
 
 const createCanvas = async data => {
@@ -48,14 +67,23 @@ const createCanvas = async data => {
           ]
         },
         options: {
+          // fullWidth: true,
+          title: {
+            display: true,
+            text: subject,
+            fontSize: 14,
+            fontColor: "white"
+          },
           layout: {
             padding: {
-              top: 100,
-              bottom: 20
+              top: 30,
+              bottom: 15
             }
           },
           tooltips: {
-            yAlign: "center",
+            position: "custom",
+            // yAlign: "center",
+            // mode: "average",
             callbacks: {
               label: function(tooltipItem) {
                 const label = tooltipItem.yLabel;
@@ -77,6 +105,7 @@ const createCanvas = async data => {
                 for (let i = 0; i < header.length; i++) {
                   response_list.push(header[i]);
                 }
+                // console.log(response_list);
                 return response_list;
               }
             }
@@ -85,6 +114,7 @@ const createCanvas = async data => {
           responsive: false,
           maintainAspectRatio: false,
           legend: {
+            position: "center",
             labels: {
               fontColor: "white",
               fontSize: 14
@@ -129,7 +159,6 @@ async function init() {
       url: `/api/charts/${id}/${url}/view/36`,
       method: "GET"
     });
-    console.log(response);
     if (!response.data[0].length == 0) {
       createCanvas(response.data);
     }

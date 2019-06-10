@@ -8,7 +8,7 @@ export const home = async (req, res) => {
     if (!req.user || req.user.email === process.env.mail) {
       userMeta = await User.get(process.env.mail);
       res.render("home", {
-        pargeTitle: "Home",
+        pageTitle: "Home",
         email: userMeta.email,
         urls: userMeta.urls
       });
@@ -18,7 +18,7 @@ export const home = async (req, res) => {
       } = req;
       userMeta = await User.get(email);
       res.render("home", {
-        pargeTitle: "Home",
+        pageTitle: "Home",
         email: userMeta.email,
         urls: userMeta.urls
       });
@@ -27,4 +27,8 @@ export const home = async (req, res) => {
     console.log(err);
     res.render("home", { pargeTitle: "Home" });
   }
+};
+
+export const addUrl = async (req, res) => {
+  console.log("tt");
 };

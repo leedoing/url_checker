@@ -81,12 +81,24 @@ const createCanvas = async data => {
                 response_list.push(
                   `Total_time: ${data[i][index]["total_time"]}`
                 );
-                // response_list.push(
-                //   `aws_resolver_dns: ${data[i][index]["aws_resolver_dns"]}`
-                // );
-                // response_list.push(
-                //   `aws_resolver_ip: ${data[i][index]["aws_resolver_ip"]}`
-                // );
+                response_list.push(
+                  `Starttransfer_time: ${data[i][index]["starttransfer_time"]}`
+                );
+                response_list.push(
+                  `Pretransfer_time: ${data[i][index]["pretransfer_time"]}`
+                );
+                response_list.push(
+                  `Connect_time: ${data[i][index]["connect_time"]}`
+                );
+                response_list.push(
+                  `Namelookup_time: ${data[i][index]["namelookup_time"]}`
+                );
+                response_list.push(
+                  `aws_resolver_dns: ${data[i][index]["aws_resolver_dns"]}`
+                );
+                response_list.push(
+                  `aws_resolver_ip: ${data[i][index]["aws_resolver_ip"]}`
+                );
                 response_list.push(`client_ip: ${data[i][index]["client_ip"]}`);
                 response_list.push(`cdn_ip: ${data[i][index]["primary_ip"]}`);
 

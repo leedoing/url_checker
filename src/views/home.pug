@@ -8,8 +8,8 @@ block content
         })
         include ./partials/chart.pug
     .bg-modal
-        .modal-contents
+        .modal-contents#jsModalContents
             .close#jsClose ❌
-            form
-                input(type="text", name="url", placeholder=`URL (File Size 1MB Limit)`)
-                a(href="#", class="button") Submit
+            form#jsAddUrlForm
+                input(type="text", name="url", placeholder=`URL File Size 10MB Limit(e.g https://google.com)`)
+                a(href="#", class="button", id="jsSubmitAddBtn") Submit

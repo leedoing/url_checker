@@ -128,7 +128,7 @@ const createCanvas = async data => {
                   stepSize: 0.1,
                   fontSize: 12,
                   autoSkip: true,
-                  maxTicksLimit: 10
+                  maxTicksLimit: 30
                 }
               }
             ],

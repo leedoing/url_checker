@@ -1,6 +1,6 @@
 .chart
     if !loggedUser
-        .chart__container(id=`lluckyy77@gmail.com||http://smr-img.cdn.pooq.co.kr/img/S01/S01_22000327704_8.jpg`)
+        .chart__container(id=`lluckyy77@gmail.com||https://react-lee-movieapp.s3.ap-northeast-2.amazonaws.com/fxxk.mp4`)
     else if loggedUser.urls
         .chart__container(id=`${loggedUser.email}||${loggedUser.urls[0].url}`)
         span=loggedUser.email

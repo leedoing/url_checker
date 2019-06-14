@@ -18,11 +18,12 @@ const API = "/api";
 // API CHARTS
 const CHARTS_GET = "/charts/:id/:url/view/:hour";
 
-// URLs
+// API URLS
 const URLS = "/urls";
-const URL = "/:id";
-const ADD_URL = "/add";
-const DEL_URL = "/:id/delete";
+const URL = "/:url";
+const CHECK_URL = "/:url/check";
+const ADD_URL = "/:url/add";
+const DEL_URL = "/:url/delete";
 
 const routes = {
   home: HOME,
@@ -39,6 +40,7 @@ const routes = {
   charts_get: CHARTS_GET,
   urls: URLS,
   url: URL,
+  check_url: CHECK_URL,
   add_url: ADD_URL,
   del_url: DEL_URL
 };

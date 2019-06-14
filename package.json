@@ -36,7 +36,7 @@
   "homepage": "https://github.com/leedoing/url_checker#readme",
   "dependencies": {
     "autoprefixer": "^9.5.0",
-    "axios": "^0.18.1",
+    "axios": "^0.19.0",
     "babel-loader": "^8.0.5",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.3.1",
@@ -44,6 +44,7 @@
     "connect-mongo": "^2.0.3",
     "cookie-parser": "^1.4.4",
     "css-loader": "^2.1.1",
+    "curl": "^0.1.4",
     "dotenv": "^7.0.0",
     "dynamodb-store": "^1.0.8",
     "dynamoose": "^1.7.2",
@@ -51,9 +52,11 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "fs": "^0.0.1-security",
     "helmet": "^3.16.0",
     "mongoose": "^5.4.22",
     "morgan": "^1.9.1",
+    "net": "^1.0.2",
     "node-sass": "^4.11.0",
     "nodemailer": "^6.1.0",
     "nodemon": "^1.18.10",
@@ -64,7 +67,9 @@
     "pbkdf2-password": "^1.2.1",
     "postcss-loader": "^3.0.0",
     "pug": "^2.0.3",
+    "request": "^2.88.0",
     "sass-loader": "^7.1.0",
+    "tls": "^0.0.1",
     "webpack": "^4.31.0"
   },
   "devDependencies": {

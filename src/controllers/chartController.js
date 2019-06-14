@@ -73,7 +73,7 @@ export const getChart = async (req, res) => {
       }
       res.send(resultList);
     } catch (err) {
-      res.send("FuCK");
+      res.send("FucK");
       res.status(403);
     } finally {
       res.end();

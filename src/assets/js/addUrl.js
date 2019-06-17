@@ -6,29 +6,48 @@ const closeBtn = document.getElementById("jsClose");
 const submitAddBtn = document.getElementById("jsSubmitAddBtn");
 const addUrlForm = document.getElementById("jsAddUrlForm");
 //https://react-lee-movieapp.s3.ap-northeast-2.amazonaws.com/favicon.ico
-const checkUrl = async url => {
+const checkUrl = async (name, url) => {
+  const encodeName = encodeURIComponent(name);
   const encodeUrl = encodeURIComponent(url);
   const response = await axios({
-    url: `/api/${encodeUrl}/check`,
+    url: `/api/${encodeName}/${encodeUrl}/add`,
     method: "GET"
   });
-  console.log(response);
+  return response.data;
 };
 
-const clickSubmitAddBtn = event => {
+const clickSubmitAddBtn = async event => {
   event.preventDefault();
-  const urlInput = addUrlForm.querySelector("input");
-  const url = urlInput.value;
-  const regex = /^((http(s?))\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
-  document.querySelector(".jsDivFileSize").style.display = "none";
-  document.querySelector(".jsDivUrlFormat").style.display = "none";
-  if (!regex.test(url)) {
-    document.querySelector(".jsDivUrlFormat").style.display = "";
+  const inputUrl = addUrlForm.querySelector("#jsInputUrl");
+  const inputName = addUrlForm.querySelector("#jsInputName");
+  const url = inputUrl.value;
+  const name = inputName.value;
+  if (name.length < 1) {
+    document.getElementsByClassName("jsDivFileSize")[0].innerText =
+      "Please Input Name";
+    document.querySelector(".jsDivFileSize").style.display = "";
+    document.querySelector(".jsDivUrlFormat").style.display = "none";
   } else {
-    checkUrl(url);
-    if (true) {
-      document.getElementsByClassName("jsDivFileSize")[0].innerText = "test";
-      document.querySelector(".jsDivFileSize").style.display = "";
+    const regex = /^((http(s?))\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
+    document.querySelector(".jsDivFileSize").style.display = "none";
+    document.querySelector(".jsDivUrlFormat").style.display = "none";
+    if (!regex.test(url)) {
+      document.querySelector(".jsDivUrlFormat").style.display = "";
+    } else {
+      const response = await checkUrl(name, url);
+      if (response.result == true) {
+        document.getElementsByClassName("jsDivFileSize")[0].innerText =
+          response.comment;
+        document.querySelector(".jsDivFileSize").style.display = "";
+        setTimeout(() => {
+          window.location.href = "./";
+        }, 5000);
+      } else {
+        document.getElementsByClassName(
+          "jsDivFileSize"
+        )[0].innerText = response;
+        document.querySelector(".jsDivFileSize").style.display = "";
+      }
     }
   }
 };

@@ -109,7 +109,7 @@
   .modal-contents {
     margin-bottom: 20%;
     height: 8rem;
-    width: 38rem;
+    width: 50rem;
     background-color: white;
     text-align: center;
     padding: 20px;
@@ -135,6 +135,9 @@
     box-shadow: 0;
   }
   form {
+    .inputName {
+      width: 35%;
+    }
     display: flex;
     margin-top: 0.7rem;
   }

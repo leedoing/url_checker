@@ -1,0 +1,12 @@
+extends layouts/main
+
+block content
+    .change
+        .change-form.global-form
+            span CHANGE PASSWORD
+            form(action=routes.change, method="post")
+                input(type="password", name="password", placeholder="Password", required=true)
+                input(type="password", name="password2", placeholder="Verify Password", required=true)
+                input(type="submit", value="Change Password")
+            if message
+            span=message

@@ -1,0 +1,11 @@
+extends layouts/main
+
+block content
+    .find
+        .find-form.global-form
+            span INPUT EMAIL
+            form(action=routes.change, method="post")
+                input(type="email", name="email", placeholder="Email", required=true)
+                input(type="submit", value="Change Password")
+            if message
+            span=message

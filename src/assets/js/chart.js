@@ -79,7 +79,7 @@ const createCanvas = async data => {
                 const response_list = new Array();
                 const header = data[i][index]["header"].split("\n");
                 response_list.push(
-                  `Total_time: ${data[i][index]["total_time"]}`
+                  `TOTAL_TIME: ${data[i][index]["total_time"]}`
                 );
                 // response_list.push(
                 //   `Starttransfer_time: ${data[i][index]["starttransfer_time"]}`
@@ -88,20 +88,20 @@ const createCanvas = async data => {
                 //   `Pretransfer_time: ${data[i][index]["pretransfer_time"]}`
                 // );
                 response_list.push(
-                  `Connect_time: ${data[i][index]["connect_time"]}`
+                  `CONNECT_TIME: ${data[i][index]["connect_time"]}`
                 );
                 response_list.push(
-                  `Namelookup_time: ${data[i][index]["namelookup_time"]}`
+                  `DNS_LOOKUP_TIME: ${data[i][index]["namelookup_time"]}`
                 );
-                response_list.push("Local_dns: 8.8.8.8");
+                response_list.push("LOCAL_DNS: 8.8.8.8");
                 // response_list.push(
                 //   `aws_resolver_dns: ${data[i][index]["aws_resolver_dns"]}`
                 // );
                 // response_list.push(
                 //   `aws_resolver_ip: ${data[i][index]["aws_resolver_ip"]}`
                 // );
-                response_list.push(`client_ip: ${data[i][index]["client_ip"]}`);
-                response_list.push(`cdn_ip: ${data[i][index]["primary_ip"]}`);
+                response_list.push(`CLIENT_IP: ${data[i][index]["client_ip"]}`);
+                response_list.push(`CDN_IP: ${data[i][index]["primary_ip"]}`);
 
                 for (let i = 0; i < header.length; i++) {
                   response_list.push(header[i]);

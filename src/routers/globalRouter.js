@@ -7,7 +7,9 @@ import {
   getLogin,
   postLogin,
   logout,
-  getVerify
+  getVerify,
+  getFindPassword,
+  postFindPassword
 } from "../controllers/userController";
 import { onlyPrivate, onlyPublic } from "../middlewares";
 
@@ -18,6 +20,9 @@ globalRouter.get(routes.home, home);
 globalRouter.get(routes.join, onlyPublic, getJoin);
 globalRouter.post(routes.join, onlyPublic, postJoin);
 globalRouter.get(routes.verify, onlyPublic, getVerify);
+
+globalRouter.get(routes.find, onlyPublic, getFindPassword);
+globalRouter.post(routes.find, onlyPublic, postFindPassword);
 
 globalRouter.get(routes.login, onlyPublic, getLogin);
 globalRouter.post(routes.login, onlyPublic, postLogin);

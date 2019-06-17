@@ -19,7 +19,41 @@ let RAND;
 let PASSWD;
 let EMAIL;
 
-export const getJoin = (req, res) => res.render("join", { pageTitle: "join" });
+export const getFindPassword = (req, res) => {
+  res.render("find", { pageTitle: "Find" });
+};
+
+export const postFindPassword = (req, res) => {
+  const {
+    body: { email }
+  } = req;
+  RAND = Math.floor(Math.random() * 100 + 54);
+  EMAIL = email;
+  const link = "http://" + req.get("host") + "/verify?name=change&id=" + RAND;
+  const mailOptions = {
+    to: email,
+    subject: "[URL CHECKER🚦] Please confirm your Email account",
+    html:
+      "Please Click on the link to verify your email.<br><a href=" +
+      link +
+      ">Click here to verify</a>"
+  };
+  smtpTransport.sendMail(mailOptions, function(error, response) {
+    if (error) {
+      console.log(error);
+      res.end("error");
+    } else {
+      res.end("sent");
+    }
+  });
+  res.status(200);
+  res.render("find", {
+    pageTitle: "Find",
+    message: "Send a Message, Check your email"
+  });
+};
+
+export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
   const {
     body: { email, password, password2 }
@@ -35,7 +69,8 @@ export const postJoin = async (req, res) => {
             EMAIL = email;
             PASSWD = password;
             const host = req.get("host");
-            const link = "http://" + req.get("host") + "/verify?id=" + RAND;
+            const link =
+              "http://" + req.get("host") + "/verify?name=join&id=" + RAND;
             const mailOptions = {
               to: email,
               subject: "[URL CHECKER🚦] Please confirm your Email account",
@@ -80,9 +115,10 @@ export const postJoin = async (req, res) => {
 
 export const getVerify = async (req, res) => {
   const {
-    query: { id }
+    query: { id, name }
   } = req;
-  if (id == RAND) {
+  console.log(name);
+  if (id == RAND && name == "join") {
     await hasher({ password: PASSWD }, (err, pass, salt, hash) => {
       const user = {
         email: EMAIL,
@@ -95,27 +131,31 @@ export const getVerify = async (req, res) => {
             return console.log(err);
           }
           res.status(302);
-          res.render("login", { pageTitle: "login" });
+          res.render("login", { pageTitle: "Login" });
         });
       } catch (err) {
         res.status(400);
         res.render("join", {
-          pageTitle: "join",
+          pageTitle: "Join",
           message: "Expired authentication token"
         });
       }
     });
+  } else if (id == RAND && name == "change") {
+    res.render("change", {
+      pageTitle: "Change"
+    });
   } else {
     res.status(400);
     res.render("join", {
-      pageTitle: "join",
+      pageTitle: "Join",
       message: "Expired authentication token"
     });
   }
 };
 
 export const getLogin = (req, res) =>
-  res.render("login", { pageTitle: "login" });
+  res.render("login", { pageTitle: "Login" });
 
 export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,

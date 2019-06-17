@@ -68,6 +68,7 @@
     "postcss-loader": "^3.0.0",
     "pug": "^2.0.3",
     "request": "^2.88.0",
+    "request-promise": "^4.2.4",
     "sass-loader": "^7.1.0",
     "tls": "^0.0.1",
     "webpack": "^4.31.0"

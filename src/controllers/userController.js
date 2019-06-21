@@ -19,6 +19,49 @@ let RAND;
 let PASSWD;
 let EMAIL;
 
+export const postChangePassword = async (req, res) => {
+  const { body: email, password, password2 } = req;
+  if (password === password2) {
+    await hasher({ password: password }, (err, pass, salt, hash) => {
+      const user = {
+        passwd: hash,
+        salt: salt
+      };
+      console.log(email.email);
+      const id = email;
+      try {
+        User.update(
+          { id },
+          {
+            $PUT: {
+              passwd: user.passwd,
+              salt: user.salt
+            }
+          },
+          function(err) {
+            if (err) {
+              console.log(err);
+            }
+          }
+        );
+        res.status(200);
+        res.render("change", {
+          pageTitle: "Change",
+          message: "Complited change password"
+        });
+      } catch (err) {
+        res.send(err);
+      }
+    });
+  } else {
+    res.status(400);
+    res.render("change", {
+      pageTitle: "Change",
+      message: "Password doesn't match"
+    });
+  }
+};
+
 export const getFindPassword = (req, res) => {
   res.render("find", { pageTitle: "Find" });
 };
@@ -29,10 +72,16 @@ export const postFindPassword = (req, res) => {
   } = req;
   RAND = Math.floor(Math.random() * 100 + 54);
   EMAIL = email;
-  const link = "http://" + req.get("host") + "/verify?name=change&id=" + RAND;
+  const link =
+    "http://" +
+    req.get("host") +
+    "/verify?name=change&id=" +
+    RAND +
+    "&email=" +
+    EMAIL;
   const mailOptions = {
     to: email,
-    subject: "[URL CHECKER🚦] Please confirm your Email account",
+    subject: "[URL CHECKER🚦] Please confirm your password change",
     html:
       "Please Click on the link to verify your email.<br><a href=" +
       link +
@@ -96,7 +145,7 @@ export const postJoin = async (req, res) => {
             res.status(400);
             res.render("join", {
               pageTitle: "Join",
-              message: "Passwords don't match"
+              message: "Password doesn't match"
             });
           }
         } else {
@@ -115,9 +164,8 @@ export const postJoin = async (req, res) => {
 
 export const getVerify = async (req, res) => {
   const {
-    query: { id, name }
+    query: { id, name, email }
   } = req;
-  console.log(name);
   if (id == RAND && name == "join") {
     await hasher({ password: PASSWD }, (err, pass, salt, hash) => {
       const user = {
@@ -143,7 +191,8 @@ export const getVerify = async (req, res) => {
     });
   } else if (id == RAND && name == "change") {
     res.render("change", {
-      pageTitle: "Change"
+      pageTitle: "Change",
+      email: email
     });
   } else {
     res.status(400);

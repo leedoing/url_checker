@@ -6,6 +6,7 @@ const FIND = "/find";
 const LOGOUT = "/logout";
 const SEARCH = "/search";
 const VERIFY = "/verify";
+const CHANGE = "/change";
 
 // Users
 const USERS = "/users";
@@ -31,6 +32,7 @@ const routes = {
   logout: LOGOUT,
   search: SEARCH,
   verify: VERIFY,
+  change: CHANGE,
   users: USERS,
   userDetail: USER_DETAIL,
   purchase: PURCHASE,

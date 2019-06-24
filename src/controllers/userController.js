@@ -20,18 +20,18 @@ let PASSWD;
 let EMAIL;
 
 export const postChangePassword = async (req, res) => {
-  const { body: email, password, password2 } = req;
+  const {
+    body: { email, password, password2 }
+  } = req;
   if (password === password2) {
     await hasher({ password: password }, (err, pass, salt, hash) => {
       const user = {
         passwd: hash,
         salt: salt
       };
-      console.log(email.email);
-      const id = email;
       try {
         User.update(
-          { id },
+          { email },
           {
             $PUT: {
               passwd: user.passwd,

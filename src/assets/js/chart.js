@@ -5,7 +5,9 @@ Chart.Tooltip.positioners.custom = function(elements, position) {
     y: 0
   };
 };
-
+const hourBtn = document.getElementsByClassName("chart_button_3hours");
+const dayBtn = document.getElementsByClassName("chart_button_day");
+const weekBtn = document.getElementsByClassName("chart_button_week");
 const urlList = document.querySelectorAll(".urlList");
 const chartContainer = document.getElementsByClassName("chart__container");
 
@@ -150,21 +152,10 @@ const createCanvas = async data => {
   }
 };
 
-const clickUrl = event => {
-  event.preventDefault();
-  const targetMeta = event.currentTarget.id;
-  const apiMeta = targetMeta.split("||");
-  const id = apiMeta[0];
-  const url = encodeURIComponent(apiMeta[1]);
-  while (chartContainer[0].hasChildNodes()) {
-    chartContainer[0].removeChild(chartContainer[0].firstChild);
-  }
-  getChart(id, url);
-};
-
-const getChart = async (id, url) => {
+const getChart = async (id, url, count) => {
   const response = await axios({
-    url: `/api/charts/${id}/${url}/view/36`,
+    url: `/api/charts/${id}/${url}/view/336`,
+    // url: `/api/charts/${id}/${url}/view/${count}`,
     method: "GET"
   });
   if (!response.data.length == 0) {
@@ -172,16 +163,33 @@ const getChart = async (id, url) => {
   }
 };
 
+const clickUrl = event => {
+  event.preventDefault();
+  chartContainer.item(0).id = event.currentTarget.id;
+  const targetMeta = event.currentTarget.id;
+  const apiMeta = targetMeta.split("||");
+  const id = apiMeta[0];
+  const url = encodeURIComponent(apiMeta[1]);
+  const count = apiMeta[3];
+  while (chartContainer[0].hasChildNodes()) {
+    chartContainer[0].removeChild(chartContainer[0].firstChild);
+  }
+  getChart(id, url, count);
+};
+
 async function init() {
   if (chartContainer[0]) {
     const apiMeta = chartContainer.item(0).id.split("||");
     const id = apiMeta[0];
     const url = encodeURIComponent(apiMeta[1]);
-    await getChart(id, url);
+    await getChart(id, url, 36);
   }
   [].forEach.call(urlList, urlList => {
     urlList.addEventListener("click", clickUrl);
   });
+  // hourBtn.addEventListener("click", clickUrl);
+  // dayBtn.addEventListener("click", clickUrl);
+  // weekBtn.addEventListener("click", cliekUrl);
 }
 
 if (chartContainer) {

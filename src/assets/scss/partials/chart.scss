@@ -1,6 +1,69 @@
 .chart {
-  width: 100%;
+  .chart__header {
+    float: right;
+    margin-top: 1rem;
+    margin-right: 2.5rem;
+    button:first-child {
+      float: left;
+      margin-right: 1102px;
+      background: #fd5d93;
+      background-image: linear-gradient(
+        to bottom left,
+        #fd5d93,
+        #ec250d,
+        #fd5d93
+      );
+      background-size: 210% 210%;
+      background-position: 100% 0;
+      background-color: #fd5d93;
+      transition: all 0.15s ease;
+      box-shadow: none;
+      color: #fff;
+    }
+    button {
+      width: 7rem;
+      background: #344675;
+      background-image: linear-gradient(
+        to bottom left,
+        #344675,
+        #263148,
+        #344675
+      );
+      font-size: 0.875rem;
+      border-radius: 0.2857rem;
+      padding: 5px 15px;
+      background-size: 210% 210%;
+      background-position: 100% 0;
+      transition: all 0.15s ease;
+      box-shadow: none;
+      color: #fff;
+      border-width: 2px;
+      border: none;
+      position: relative;
+      overflow: hidden;
+      margin: 4px 1px;
+      display: inline-block;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      user-select: none;
+      font-family: Poppins, sans-serif;
+      -webkit-appearance: button;
+      text-transform: none;
+      text-rendering: auto;
+      letter-spacing: normal;
+      word-spacing: normal;
+    }
+    button:hover {
+      background: #e14eca;
+    }
+    button:not(:disabled):not(.disabled) {
+      cursor: pointer;
+    }
+  }
   .chart__container {
+    width: 100%;
     display: flex;
     flex-flow: wrap;
     flex-direction: row;

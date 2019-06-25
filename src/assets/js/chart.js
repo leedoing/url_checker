@@ -5,11 +5,17 @@ Chart.Tooltip.positioners.custom = function(elements, position) {
     y: 0
   };
 };
-const hourBtn = document.getElementsByClassName("chart_button_3hours");
-const dayBtn = document.getElementsByClassName("chart_button_day");
-const weekBtn = document.getElementsByClassName("chart_button_week");
+const hourBtn = document.getElementsByClassName("chart__button__3hours");
+const dayBtn = document.getElementsByClassName("chart__button__day");
+const weekBtn = document.getElementsByClassName("chart__button__week");
+const twoWeeksBtn = document.getElementsByClassName("chart__button__2weeks");
 const urlList = document.querySelectorAll(".urlList");
 const chartContainer = document.getElementsByClassName("chart__container");
+
+const hour = 3;
+const day = 24;
+const week = 168;
+const twoWeeks = 336;
 
 const createCanvas = async data => {
   const canvas_list = new Array();
@@ -154,8 +160,8 @@ const createCanvas = async data => {
 
 const getChart = async (id, url, count) => {
   const response = await axios({
-    url: `/api/charts/${id}/${url}/view/336`,
-    // url: `/api/charts/${id}/${url}/view/${count}`,
+    // url: `/api/charts/${id}/${url}/view/336`,
+    url: `/api/charts/${id}/${url}/view/${count}`,
     method: "GET"
   });
   if (!response.data.length == 0) {
@@ -170,11 +176,19 @@ const clickUrl = event => {
   const apiMeta = targetMeta.split("||");
   const id = apiMeta[0];
   const url = encodeURIComponent(apiMeta[1]);
-  const count = apiMeta[3];
+  const count = apiMeta[2];
+  hourBtn[0].id = id + "||" + apiMeta[1] + "||" + hour;
+  dayBtn[0].id = id + "||" + apiMeta[1] + "||" + day;
+  weekBtn[0].id = id + "||" + apiMeta[1] + "||" + week;
+  twoWeeksBtn[0].id = id + "||" + apiMeta[1] + "||" + twoWeeks;
   while (chartContainer[0].hasChildNodes()) {
     chartContainer[0].removeChild(chartContainer[0].firstChild);
   }
-  getChart(id, url, count);
+  if (!apiMeta[2]) {
+    getChart(id, url, hour);
+  } else {
+    getChart(id, url, count);
+  }
 };
 
 async function init() {
@@ -182,14 +196,18 @@ async function init() {
     const apiMeta = chartContainer.item(0).id.split("||");
     const id = apiMeta[0];
     const url = encodeURIComponent(apiMeta[1]);
-    await getChart(id, url, 36);
+    hourBtn[0].id = id + "||" + apiMeta[1] + "||" + hour;
+    dayBtn[0].id = id + "||" + apiMeta[1] + "||" + day;
+    weekBtn[0].id = id + "||" + apiMeta[1] + "||" + week;
+    twoWeeksBtn[0].id = id + "||" + apiMeta[1] + "||" + twoWeeks;
+    await getChart(id, url, hour);
   }
   [].forEach.call(urlList, urlList => {
     urlList.addEventListener("click", clickUrl);
   });
-  // hourBtn.addEventListener("click", clickUrl);
-  // dayBtn.addEventListener("click", clickUrl);
-  // weekBtn.addEventListener("click", cliekUrl);
+  hourBtn[0].addEventListener("click", clickUrl);
+  dayBtn[0].addEventListener("click", clickUrl);
+  weekBtn[0].addEventListener("click", clickUrl);
 }
 
 if (chartContainer) {

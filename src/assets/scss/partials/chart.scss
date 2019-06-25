@@ -1,11 +1,10 @@
 .chart {
+  width: 100%;
   .chart__header {
     float: right;
-    margin-top: 1rem;
-    margin-right: 2.5rem;
     button:first-child {
       float: left;
-      margin-right: 1102px;
+      margin-right: 950px;
       background: #fd5d93;
       background-image: linear-gradient(
         to bottom left,
@@ -13,6 +12,7 @@
         #ec250d,
         #fd5d93
       );
+      margin-right: 15px;
       background-size: 210% 210%;
       background-position: 100% 0;
       background-color: #fd5d93;
@@ -65,8 +65,8 @@
   .chart__container {
     width: 100%;
     display: flex;
-    flex-flow: wrap;
-    flex-direction: row;
+    // flex-flow: wrap;
+    // flex-direction: row;
   }
   canvas {
     width: 40vw;

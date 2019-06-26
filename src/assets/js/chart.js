@@ -1,10 +1,12 @@
 import axios from "axios";
+
 Chart.Tooltip.positioners.custom = function(elements, position) {
   return {
     x: 7,
     y: 0
   };
 };
+const deleteBtn = document.getElementsByClassName("chart__button__delete");
 const hourBtn = document.getElementsByClassName("chart__button__3hours");
 const dayBtn = document.getElementsByClassName("chart__button__day");
 const weekBtn = document.getElementsByClassName("chart__button__week");
@@ -177,6 +179,7 @@ const clickUrl = event => {
   const id = apiMeta[0];
   const url = encodeURIComponent(apiMeta[1]);
   const count = apiMeta[2];
+  deleteBtn[0].id = id + "||" + apiMeta[1];
   hourBtn[0].id = id + "||" + apiMeta[1] + "||" + hour;
   dayBtn[0].id = id + "||" + apiMeta[1] + "||" + day;
   weekBtn[0].id = id + "||" + apiMeta[1] + "||" + week;
@@ -196,6 +199,7 @@ async function init() {
     const apiMeta = chartContainer.item(0).id.split("||");
     const id = apiMeta[0];
     const url = encodeURIComponent(apiMeta[1]);
+    deleteBtn[0].id = id + "||" + apiMeta[1];
     hourBtn[0].id = id + "||" + apiMeta[1] + "||" + hour;
     dayBtn[0].id = id + "||" + apiMeta[1] + "||" + day;
     weekBtn[0].id = id + "||" + apiMeta[1] + "||" + week;
@@ -205,9 +209,11 @@ async function init() {
   [].forEach.call(urlList, urlList => {
     urlList.addEventListener("click", clickUrl);
   });
+  // deleteBtn[0].addEventListener("click", clickUrl);
   hourBtn[0].addEventListener("click", clickUrl);
   dayBtn[0].addEventListener("click", clickUrl);
   weekBtn[0].addEventListener("click", clickUrl);
+  twoWeeksBtn[0].addEventListener("click", clickUrl);
 }
 
 if (chartContainer) {

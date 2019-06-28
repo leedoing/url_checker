@@ -216,6 +216,6 @@ async function init() {
   twoWeeksBtn[0].addEventListener("click", clickUrl);
 }
 
-if (chartContainer) {
+if (chartContainer && hourBtn[0]) {
   init();
 }

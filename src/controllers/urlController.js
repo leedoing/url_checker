@@ -93,6 +93,41 @@ export const checkUrl = async (req, res) => {
   }
 };
 
-export const addUrl = async (req, res) => {
-  console.log("tt");
+export const delUrl = async (req, res) => {
+  const {
+    params: { name, url }
+  } = req;
+  let urls;
+  console.log(name, url);
+  User.get({ email: name }, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (data.urls) {
+        for (let i = 0; i < data.urls.length; i++) {
+          if (data.urls[i].url == url) {
+            console.log("???");
+            data.urls.splice(i, 1);
+          }
+        }
+        urls = data.urls;
+        User.update(
+          { email: name },
+          {
+            $PUT: {
+              urls: urls
+            }
+          },
+          function(err) {
+            if (err) {
+              console.log(err);
+            }
+          }
+        );
+      } else {
+        console.log("Not Found URL");
+      }
+    }
+  });
+  res.end();
 };

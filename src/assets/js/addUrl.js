@@ -41,7 +41,7 @@ const clickSubmitAddBtn = async event => {
         document.querySelector(".jsDivFileSize").style.display = "";
         setTimeout(() => {
           window.location.href = "./";
-        }, 5000);
+        }, 3000);
       } else {
         document.getElementsByClassName(
           "jsDivFileSize"

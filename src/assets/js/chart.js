@@ -14,30 +14,18 @@ const weekBtn = document.getElementsByClassName("chart__button__week");
 const twoWeeksBtn = document.getElementsByClassName("chart__button__2weeks");
 const urlList = document.querySelectorAll(".urlList");
 const chartContainer = document.getElementsByClassName("chart__container");
-const bar = new ProgressBar.Circle(chart__circle, {
-  color: "#FFEA82",
-  // This has to be the same size as the maximum width to
-  // prevent clipping
-  strokeWidth: 4,
-  trailWidth: 3,
+var bar = new ProgressBar.Circle(chart__circle, {
+  color: "#fd5d93",
+  trailColor: "#eee",
+  trailWidth: 1,
+  duration: 1400,
   easing: "bounce",
-  duration: 1200,
-  text: {
-    autoStyleContainer: false
-  },
-  from: { color: "#FFEA82", width: 0 },
-  to: { color: "#ED6A5A", width: 1 },
+  strokeWidth: 6,
+  from: { color: "#fd5d93", a: 0 },
+  to: { color: "#1E1D2E", a: 1 },
   // Set default step function for all animate calls
   step: function(state, circle) {
     circle.path.setAttribute("stroke", state.color);
-    circle.path.setAttribute("stroke-width", state.width);
-
-    var value = Math.round(circle.value() * 100);
-    if (value === 0) {
-      circle.setText("");
-    } else {
-      circle.setText("");
-    }
   }
 });
 const chartCircle = document.getElementById("chart__circle");
@@ -204,7 +192,7 @@ const getChart = async (id, url, count) => {
   }).then(response => {
     if (!response.data.length == 0) {
       chartCircle.style.display = "none";
-      bar.set();
+      bar.set(0);
       createCanvas(response.data);
     }
   });

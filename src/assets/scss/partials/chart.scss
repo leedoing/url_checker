@@ -1,10 +1,11 @@
 .chart {
   width: 100%;
   .chart__header {
-    // float: right;
-    margin-top: 10px;
-    // margin-right: 41px;
-    margin-left: 32px;
+    position: sticky;
+    top: 5%;
+    background-color: #1e1d2e;
+    width: 100%;
+    padding-left: 33px;
     button:first-child {
       margin-right: 965px;
       background: #fd5d93;

@@ -194,6 +194,8 @@ const getChart = async (id, url, count) => {
       chartCircle.style.display = "none";
       bar.set(0);
       createCanvas(response.data);
+    } else {
+      alert("Sorry, can not load chart");
     }
   });
 };

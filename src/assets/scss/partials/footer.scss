@@ -1,8 +1,11 @@
 .footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
   width: 100%;
   border-top: 1px groove #69201e;
   box-shadow: 0px -1px 0px 0px;
-  margin: 1% 0px 1% 0px;
+  margin: 1% 0px 0px 0px;
   .footer__text {
     position: sticky;
     left: 106.7rem;

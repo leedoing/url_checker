@@ -1,4 +1,5 @@
 import axios from "axios";
+import ProgressBar from "progressbar.js";
 
 Chart.Tooltip.positioners.custom = function(elements, position) {
   return {
@@ -13,6 +14,33 @@ const weekBtn = document.getElementsByClassName("chart__button__week");
 const twoWeeksBtn = document.getElementsByClassName("chart__button__2weeks");
 const urlList = document.querySelectorAll(".urlList");
 const chartContainer = document.getElementsByClassName("chart__container");
+const bar = new ProgressBar.Circle(chart__circle, {
+  color: "#FFEA82",
+  // This has to be the same size as the maximum width to
+  // prevent clipping
+  strokeWidth: 4,
+  trailWidth: 3,
+  easing: "bounce",
+  duration: 1200,
+  text: {
+    autoStyleContainer: false
+  },
+  from: { color: "#FFEA82", width: 0 },
+  to: { color: "#ED6A5A", width: 1 },
+  // Set default step function for all animate calls
+  step: function(state, circle) {
+    circle.path.setAttribute("stroke", state.color);
+    circle.path.setAttribute("stroke-width", state.width);
+
+    var value = Math.round(circle.value() * 100);
+    if (value === 0) {
+      circle.setText("");
+    } else {
+      circle.setText("");
+    }
+  }
+});
+const chartCircle = document.getElementById("chart__circle");
 
 const hour = 3;
 const day = 24;
@@ -161,17 +189,22 @@ const createCanvas = async data => {
 };
 
 const getChart = async (id, url, count) => {
+  chartCircle.style.display = "";
   // const response = await axios({
   //   // url: `/api/charts/${id}/${url}/view/336`,
   //   url: `/api/charts/${id}/${url}/view/${count}`,
   //   method: "GET"
   // });
+  // chartCircle.style.display = "";
+  bar.animate(1.0);
   const response = await axios({
     // url: `/api/charts/${id}/${url}/view/336`,
     url: `/api/charts/${id}/${url}/view/${count}`,
     method: "GET"
   }).then(response => {
     if (!response.data.length == 0) {
+      chartCircle.style.display = "none";
+      bar.set();
       createCanvas(response.data);
     }
   });

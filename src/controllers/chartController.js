@@ -2,7 +2,7 @@ import moment from "moment";
 import routes from "../routes";
 import User from "../models/User";
 import Url from "../models/Url";
-const LOCATIONLIST = ["KR", "US"];
+const LOCATIONLIST = ["KR", "US", "DE"];
 
 export const getChart = async (req, res) => {
   let email;

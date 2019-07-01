@@ -161,14 +161,20 @@ const createCanvas = async data => {
 };
 
 const getChart = async (id, url, count) => {
+  // const response = await axios({
+  //   // url: `/api/charts/${id}/${url}/view/336`,
+  //   url: `/api/charts/${id}/${url}/view/${count}`,
+  //   method: "GET"
+  // });
   const response = await axios({
     // url: `/api/charts/${id}/${url}/view/336`,
     url: `/api/charts/${id}/${url}/view/${count}`,
     method: "GET"
+  }).then(response => {
+    if (!response.data.length == 0) {
+      createCanvas(response.data);
+    }
   });
-  if (!response.data.length == 0) {
-    createCanvas(response.data);
-  }
 };
 
 const clickUrl = event => {
@@ -209,7 +215,6 @@ async function init() {
   [].forEach.call(urlList, urlList => {
     urlList.addEventListener("click", clickUrl);
   });
-  // deleteBtn[0].addEventListener("click", clickUrl);
   hourBtn[0].addEventListener("click", clickUrl);
   dayBtn[0].addEventListener("click", clickUrl);
   weekBtn[0].addEventListener("click", clickUrl);

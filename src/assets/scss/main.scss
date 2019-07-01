@@ -17,4 +17,6 @@ body {
   button {
     cursor: pointer;
   }
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
 }

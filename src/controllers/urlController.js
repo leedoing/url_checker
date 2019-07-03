@@ -12,7 +12,8 @@ export const home = async (req, res) => {
       res.render("home", {
         pageTitle: "Home",
         email: userMeta.email,
-        urls: userMeta.urls
+        urls: userMeta.urls,
+        purchase: userMeta.purchase
       });
     } else {
       const {
@@ -22,7 +23,8 @@ export const home = async (req, res) => {
       res.render("home", {
         pageTitle: "Home",
         email: userMeta.email,
-        urls: userMeta.urls
+        urls: userMeta.urls,
+        purchase: userMeta.purchase
       });
     }
   } catch (err) {
@@ -41,7 +43,6 @@ export const checkUrl = async (req, res) => {
       statusCode = response.statusCode;
       fileSize = response.headers["content-length"] / 1024.0 / 1024.0;
     });
-    console.log(statusCode);
     if (statusCode != 200) {
       res.send(`Please check URL(HTTP(S) Status: ${statusCode})`);
     } else if (isNaN(fileSize)) {
@@ -57,7 +58,6 @@ export const checkUrl = async (req, res) => {
         .utc()
         .add(1, "month")
         .format("YYYY-MM-DDTHH:mm:ss");
-      console.log(deadLine);
       if (purchase > 0) {
         User.update(
           { email },

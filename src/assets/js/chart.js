@@ -22,7 +22,7 @@ var bar = new ProgressBar.Circle(chart__circle, {
   easing: "bounce",
   strokeWidth: 6,
   from: { color: "#fd5d93", a: 0 },
-  to: { color: "#1E1D2E", a: 1 },
+  to: { color: "#fd5d93", a: 1 },
   // Set default step function for all animate calls
   step: function(state, circle) {
     circle.path.setAttribute("stroke", state.color);

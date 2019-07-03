@@ -97,17 +97,17 @@
   .modal-contents {
     margin-bottom: 20%;
     height: 8rem;
-    width: 50rem;
+    width: 77rem;
     background-color: white;
     text-align: center;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     position: relative;
     border-radius: 4px;
     box-shadow: 0 4px 6px rgba(50, 90, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 1);
     background-color: #27293d;
   }
-
-  input[type="text"] {
+  input[type="text"],
+  input[type="number"] {
     margin: 15px auto;
     display: block;
     width: 100%;
@@ -118,16 +118,19 @@
     background-color: white;
     box-shadow: 0 4px 6px rgba(50, 90, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 1);
   }
-  input[type="text"]:focus {
+  input[type="text"],
+  input[type="number"]:focus {
     border: 1.5px solid #d94fd3;
     box-shadow: 0;
   }
   form {
+    .inputMonth {
+      width: 8rem;
+    }
     .inputName {
       width: 35%;
     }
     display: flex;
-    margin-top: 0.7rem;
   }
   .close {
     position: absolute;

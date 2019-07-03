@@ -215,3 +215,7 @@ export const logout = (req, res) => {
   req.logout();
   res.redirect(routes.home);
 };
+
+export const getProfile = (req, res) => {
+  res.render("profile", { pageTitle: "Profile" });
+};

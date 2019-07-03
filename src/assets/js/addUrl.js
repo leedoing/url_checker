@@ -20,19 +20,29 @@ const clickSubmitAddBtn = async event => {
   event.preventDefault();
   const inputUrl = addUrlForm.querySelector("#jsInputUrl");
   const inputName = addUrlForm.querySelector("#jsInputName");
+  const inputMonth = addUrlForm.querySelector("#jsInputMonth");
   const url = inputUrl.value;
   const name = inputName.value;
+  const month = inputMonth.value;
+  const regexUrl = /^((http(s?))\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
   if (name.length < 1) {
     document.getElementsByClassName("jsDivFileSize")[0].innerText =
       "Please Input Name";
     document.querySelector(".jsDivFileSize").style.display = "";
     document.querySelector(".jsDivUrlFormat").style.display = "none";
+    document.querySelector(".jsDivMonthFormat").style.display = "none";
   } else {
-    const regex = /^((http(s?))\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
     document.querySelector(".jsDivFileSize").style.display = "none";
     document.querySelector(".jsDivUrlFormat").style.display = "none";
-    if (!regex.test(url)) {
+    document.querySelector(".jsDivMonthFormat").style.display = "none";
+    if (!regexUrl.test(url)) {
+      document.querySelector(".jsDivFileSize").style.display = "none";
       document.querySelector(".jsDivUrlFormat").style.display = "";
+      document.querySelector(".jsDivMonthFormat").style.display = "none";
+    } else if (month < 1 || month > 12 || month.length < 1 || month % 1 != 0) {
+      document.querySelector(".jsDivFileSize").style.display = "none";
+      document.querySelector(".jsDivUrlFormat").style.display = "none";
+      document.querySelector(".jsDivMonthFormat").style.display = "";
     } else {
       const response = await checkUrl(name, url);
       if (response.result == true) {
@@ -43,6 +53,7 @@ const clickSubmitAddBtn = async event => {
           window.location.href = "./";
         }, 1000);
       } else {
+        alert("Sorry API Error");
         document.getElementsByClassName(
           "jsDivFileSize"
         )[0].innerText = response;
@@ -62,6 +73,7 @@ const clickCloseAddUrl = event => {
   document.querySelector(".bg-modal").style.display = "none";
   document.querySelector(".jsDivUrlFormat").style.display = "none";
   document.querySelector(".jsDivFileSize").style.display = "none";
+  document.querySelector(".jsDivMonthFormat").style.display = "none";
 };
 
 const createMessage = () => {
@@ -76,6 +88,12 @@ const createMessage = () => {
   divFileSize.innerHTML = "Please check file size (10MB Limit)";
   modalContents.appendChild(divFileSize);
   document.querySelector(".jsDivFileSize").style.display = "none";
+
+  const divMonthFormat = document.createElement("div");
+  divMonthFormat.setAttribute("class", "jsDivMonthFormat");
+  divMonthFormat.innerHTML = "Please check month format(1~12)";
+  modalContents.appendChild(divMonthFormat);
+  document.querySelector(".jsDivMonthFormat").style.display = "none";
 };
 
 async function init() {

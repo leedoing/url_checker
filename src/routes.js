@@ -10,7 +10,7 @@ const CHANGE = "/change";
 
 // Users
 const USERS = "/users";
-const USER_DETAIL = "/:id";
+const PROFILE = "/profile";
 const PURCHASE = "/purchase";
 const CHANGE_PASSWORD = "/change-password";
 
@@ -34,7 +34,7 @@ const routes = {
   verify: VERIFY,
   change: CHANGE,
   users: USERS,
-  userDetail: USER_DETAIL,
+  profile: PROFILE,
   purchase: PURCHASE,
   changePassword: CHANGE_PASSWORD,
   api: API,

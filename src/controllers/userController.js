@@ -35,7 +35,8 @@ export const postChangePassword = async (req, res) => {
           {
             $PUT: {
               passwd: user.passwd,
-              salt: user.salt
+              salt: user.salt,
+              purchase: [{}]
             }
           },
           function(err) {

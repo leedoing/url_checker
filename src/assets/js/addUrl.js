@@ -6,12 +6,12 @@ const closeBtn = document.getElementById("jsClose");
 const submitAddBtn = document.getElementById("jsSubmitAddBtn");
 const addUrlForm = document.getElementById("jsAddUrlForm");
 //https://react-lee-movieapp.s3.ap-northeast-2.amazonaws.com/favicon.ico
-const checkUrl = async (name, url) => {
+const checkUrl = async (name, url, month) => {
   const encodeName = encodeURIComponent(name);
   const encodeUrl = encodeURIComponent(url);
   const response = await axios({
-    url: `/api/${encodeName}/${encodeUrl}/add`,
-    method: "GET"
+    url: `/api/${encodeName}/${encodeUrl}/${month}/add`,
+    method: "post"
   });
   return response.data;
 };
@@ -44,7 +44,7 @@ const clickSubmitAddBtn = async event => {
       document.querySelector(".jsDivUrlFormat").style.display = "none";
       document.querySelector(".jsDivMonthFormat").style.display = "";
     } else {
-      const response = await checkUrl(name, url);
+      const response = await checkUrl(name, url, month);
       if (response.result == true) {
         document.getElementsByClassName("jsDivFileSize")[0].innerText =
           response.comment;
@@ -53,7 +53,7 @@ const clickSubmitAddBtn = async event => {
           window.location.href = "./";
         }, 1000);
       } else {
-        alert("Sorry API Error");
+        alert("Sorry, Not enough coin. Please purchase coin");
         document.getElementsByClassName(
           "jsDivFileSize"
         )[0].innerText = response;
@@ -91,7 +91,7 @@ const createMessage = () => {
 
   const divMonthFormat = document.createElement("div");
   divMonthFormat.setAttribute("class", "jsDivMonthFormat");
-  divMonthFormat.innerHTML = "Please check month format(1~12)";
+  divMonthFormat.innerHTML = "Please check month (min:1 / max:12)";
   modalContents.appendChild(divMonthFormat);
   document.querySelector(".jsDivMonthFormat").style.display = "none";
 };

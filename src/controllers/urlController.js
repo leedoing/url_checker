@@ -20,6 +20,9 @@ export const home = async (req, res) => {
         user: { email }
       } = req;
       userMeta = await User.get(email);
+      if (!userMeta.purchase) {
+        userMeta.purchase = 0;
+      }
       res.render("home", {
         pageTitle: "Home",
         email: userMeta.email,
@@ -33,17 +36,20 @@ export const home = async (req, res) => {
   }
 };
 
-export const checkUrl = async (req, res) => {
+export const postCheckUrl = async (req, res) => {
   const name = decodeURIComponent(req.url.split("/")[1]);
   const url = decodeURIComponent(req.url.split("/")[2]);
+  const month = decodeURIComponent(req.url.split("/")[3]);
   let statusCode;
   let fileSize;
+  const email = req.user.email;
   try {
     await request.head(url).on("response", response => {
       statusCode = response.statusCode;
       fileSize = response.headers["content-length"] / 1024.0 / 1024.0;
     });
     if (statusCode != 200) {
+      console.log(statusCode);
       res.send(`Please check URL(HTTP(S) Status: ${statusCode})`);
     } else if (isNaN(fileSize)) {
       res.send(`Can't get a content-length header. Please check URL!`);
@@ -52,53 +58,57 @@ export const checkUrl = async (req, res) => {
         `You uploaded more than 10MB of files(${fileSize.toFixed(1)} MB)`
       );
     } else {
-      const email = req.user.email;
-      const purchase = req.user.purchase;
-      const deadLine = moment()
-        .utc()
-        .add(1, "month")
-        .format("YYYY-MM-DDTHH:mm:ss");
-      if (purchase > 0) {
-        User.update(
-          { email },
-          {
-            $PUT: {
-              purchase: purchase - 1
-            },
-            $ADD: {
-              urls: [
-                {
-                  deadLine: deadLine,
-                  name: name,
-                  url: url
+      await User.get({ email: email }, (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if (data.purchase < month) {
+            res.send("Sorry, Not enough coin. Please purchase coin");
+          } else {
+            const deadLine = moment()
+              .utc()
+              .add(month, "month")
+              .format("YYYY-MM-DDTHH:mm:ss");
+            User.update(
+              { email },
+              {
+                $PUT: {
+                  purchase: data.purchase - month
+                },
+                $ADD: {
+                  urls: [
+                    {
+                      deadLine: deadLine,
+                      name: name,
+                      url: url
+                    }
+                  ]
                 }
-              ]
-            }
-          },
-          function(err) {
-            if (err) {
-              console.log(err);
-            }
-            res.send({
-              result: true,
-              comment: `Complited. You can check after 5min! (DeadLine: ${deadLine})`
-            });
+              },
+              function(err) {
+                if (err) {
+                  console.log(err);
+                }
+                res.send({
+                  result: true,
+                  comment: `Complited. You can check after 5min! (DeadLine: ${deadLine})`
+                });
+              }
+            );
           }
-        );
-      }
+        }
+      });
     }
   } catch (err) {
     console.log(err);
-    res.send(`Please check URL[HTTP(S) Status: ${statusCode}]`);
   }
 };
 
-export const delUrl = async (req, res) => {
+export const postDelUrl = async (req, res) => {
   const {
     params: { name, url }
   } = req;
   let urls;
-  console.log(name, url);
   User.get({ email: name }, (err, data) => {
     if (err) {
       console.log(err);
@@ -106,11 +116,13 @@ export const delUrl = async (req, res) => {
       if (data.urls) {
         for (let i = 0; i < data.urls.length; i++) {
           if (data.urls[i].url == url) {
-            console.log("???");
             data.urls.splice(i, 1);
           }
         }
         urls = data.urls;
+        if (urls.length == 0) {
+          urls = [{}];
+        }
         User.update(
           { email: name },
           {
@@ -124,8 +136,6 @@ export const delUrl = async (req, res) => {
             }
           }
         );
-      } else {
-        console.log("Not Found URL");
       }
     }
   });

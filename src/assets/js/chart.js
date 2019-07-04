@@ -30,10 +30,10 @@ var bar = new ProgressBar.Circle(chart__circle, {
 });
 const chartCircle = document.getElementById("chart__circle");
 
-const hour = 3;
-const day = 24;
-const week = 168;
-const twoWeeks = 336;
+const hour = 3 * 12;
+const day = 24 * 12;
+const week = 168 * 12;
+const twoWeeks = 336 * 12;
 
 const createCanvas = async data => {
   const canvas_list = new Array();
@@ -195,7 +195,7 @@ const getChart = async (id, url, count) => {
       bar.set(0);
       createCanvas(response.data);
     } else {
-      alert("Sorry, can not load chart");
+      alert("Sorry, Please wait for 5 min");
     }
   });
 };

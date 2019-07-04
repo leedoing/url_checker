@@ -21,7 +21,7 @@ const API = "/api";
 const CHARTS_GET = "/charts/:id/:url/view/:hour";
 
 // API URLS
-const ADD_URL = "/:name/:url/add";
+const ADD_URL = "/:name/:url/:month/add";
 const DEL_URL = "/:name/:url/delete";
 
 const routes = {

@@ -42,7 +42,12 @@ export const postCheckUrl = async (req, res) => {
   const month = decodeURIComponent(req.url.split("/")[3]);
   let statusCode;
   let fileSize;
+  let urls;
   const email = req.user.email;
+  const deadLine = moment()
+    .utc()
+    .add(month, "month")
+    .format("YYYY-MM-DDTHH:mm:ss");
   try {
     await request.head(url).on("response", response => {
       statusCode = response.statusCode;
@@ -62,40 +67,45 @@ export const postCheckUrl = async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          if (data.purchase < month) {
+          if (data.purchase < month || !data.purchase) {
             res.send("Sorry, Not enough coin. Please purchase coin");
           } else {
-            const deadLine = moment()
-              .utc()
-              .add(month, "month")
-              .format("YYYY-MM-DDTHH:mm:ss");
-            User.update(
-              { email },
-              {
-                $PUT: {
-                  purchase: data.purchase - month
-                },
-                $ADD: {
-                  urls: [
-                    {
-                      deadLine: deadLine,
-                      name: name,
-                      url: url
-                    }
-                  ]
+            if (!data.urls) {
+              urls = [
+                {
+                  deadLine: deadLine,
+                  name: name,
+                  url: url
                 }
-              },
-              function(err) {
-                if (err) {
-                  console.log(err);
-                }
-                res.send({
-                  result: true,
-                  comment: `Complited. You can check after 5min! (DeadLine: ${deadLine})`
-                });
-              }
-            );
+              ];
+            } else {
+              urls = {
+                deadLine: deadLine,
+                name: name,
+                url: url
+              };
+              data.urls.push(urls);
+              urls = data.urls;
+            }
           }
+          User.update(
+            { email },
+            {
+              $PUT: {
+                purchase: data.purchase - month,
+                urls: urls
+              }
+            },
+            function(err) {
+              if (err) {
+                console.log(err);
+              }
+              res.send({
+                result: true,
+                comment: `Complited. You can check after 5min! (DeadLine: ${deadLine})`
+              });
+            }
+          );
         }
       });
     }
@@ -120,9 +130,6 @@ export const postDelUrl = async (req, res) => {
           }
         }
         urls = data.urls;
-        if (urls.length == 0) {
-          urls = [{}];
-        }
         User.update(
           { email: name },
           {

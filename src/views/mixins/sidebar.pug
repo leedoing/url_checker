@@ -3,7 +3,7 @@ mixin sidebar(urlsList = {})
         .toogle-btn
         ul
             each list in urlsList
-                if list[1]
+                if list
                     each val in list
                         li(data-tooltip-text=`URL: ${val.url}
                         DeadLine: ${val.deadLine}`, data-html="true", 

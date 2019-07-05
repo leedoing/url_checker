@@ -35,8 +35,7 @@ export const postChangePassword = async (req, res) => {
           {
             $PUT: {
               passwd: user.passwd,
-              salt: user.salt,
-              purchase: [{}]
+              salt: user.salt
             }
           },
           function(err) {
@@ -172,7 +171,8 @@ export const getVerify = async (req, res) => {
       const user = {
         email: EMAIL,
         passwd: hash,
-        salt: salt
+        salt: salt,
+        purchase: 0
       };
       try {
         User.create(user, (err, odie) => {

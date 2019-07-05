@@ -178,12 +178,6 @@ const createCanvas = async data => {
 
 const getChart = async (id, url, count) => {
   chartCircle.style.display = "";
-  // const response = await axios({
-  //   // url: `/api/charts/${id}/${url}/view/336`,
-  //   url: `/api/charts/${id}/${url}/view/${count}`,
-  //   method: "GET"
-  // });
-  // chartCircle.style.display = "";
   bar.animate(1.0);
   const response = await axios({
     // url: `/api/charts/${id}/${url}/view/336`,
@@ -202,6 +196,7 @@ const getChart = async (id, url, count) => {
 
 const clickUrl = event => {
   event.preventDefault();
+  console.log(event.currentTarget.id);
   chartContainer.item(0).id = event.currentTarget.id;
   const targetMeta = event.currentTarget.id;
   const apiMeta = targetMeta.split("||");

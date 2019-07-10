@@ -18,9 +18,20 @@ header.header
                         |Add URL 
                         i.fas.fa-file-upload
                 li.header__nav-list-item
-                    a.header__nav-list-item-link(href=`${routes.users}${routes.profile}`)
+                    //- a.header__nav-list-item-link(href=`${routes.users}${routes.profile}`)
                         |Profile 
                         i.fas.fa-address-card
+                    a.header__nav-list-item-link(href="#")
+                        |Profile
+                        i.fas.fa-address-card
+                        .header__nav-list-item-sub-menu
+                            ul
+                                li
+                                    a(href=`${routes.users}${routes.changePassword}`) Change Password
+                                li
+                                    a(href="#") Payment
+                                li
+                                    a(href="#") Membership withdrawal
                 li.header__nav-list-item
                     a.header__nav-list-item-link(href=routes.logout) 
                         |Log out 

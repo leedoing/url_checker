@@ -10,6 +10,6 @@
         #chart__circle
     if !loggedUser
         .chart__container(id=`lluckyy77@gmail.com||https://www.google.com/tia/tia.png||3`)
-    else if loggedUser.urls
-        .chart__container(id=`${loggedUser.email}||${loggedUser.urls[0].url}||3`)
+    else if urls
+        .chart__container(id=`${loggedUser.email}||${urls[0].url}||3`)
         //- span=loggedUser.email

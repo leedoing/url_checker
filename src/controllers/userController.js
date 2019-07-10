@@ -217,6 +217,9 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
-export const getProfile = (req, res) => {
-  res.render("profile", { pageTitle: "Profile" });
+export const getChangePassword = (req, res) => {
+  const {
+    user: { email, purchase }
+  } = req;
+  res.render("change", { pageTitle: "Change", email, purchase });
 };

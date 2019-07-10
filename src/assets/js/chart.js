@@ -14,26 +14,28 @@ const weekBtn = document.getElementsByClassName("chart__button__week");
 const twoWeeksBtn = document.getElementsByClassName("chart__button__2weeks");
 const urlList = document.querySelectorAll(".urlList");
 const chartContainer = document.getElementsByClassName("chart__container");
-var bar = new ProgressBar.Circle(chart__circle, {
-  color: "#fd5d93",
-  trailColor: "#eee",
-  trailWidth: 1,
-  duration: 1400,
-  easing: "bounce",
-  strokeWidth: 6,
-  from: { color: "#fd5d93", a: 0 },
-  to: { color: "#fd5d93", a: 1 },
-  // Set default step function for all animate calls
-  step: function(state, circle) {
-    circle.path.setAttribute("stroke", state.color);
-  }
-});
 const chartCircle = document.getElementById("chart__circle");
+if (chartCircle) {
+  var bar = new ProgressBar.Circle(chart__circle, {
+    color: "#fd5d93",
+    trailColor: "#eee",
+    trailWidth: 1,
+    duration: 1400,
+    easing: "bounce",
+    strokeWidth: 6,
+    from: { color: "#fd5d93", a: 0 },
+    to: { color: "#fd5d93", a: 1 },
+    // Set default step function for all animate calls
+    step: function(state, circle) {
+      circle.path.setAttribute("stroke", state.color);
+    }
+  });
+}
 
-const hour = 3 * 12;
-const day = 24 * 12;
-const week = 168 * 12;
-const twoWeeks = 336 * 12;
+const hour = 3;
+const day = 24;
+const week = 168;
+const twoWeeks = 336;
 
 const createCanvas = async data => {
   const canvas_list = new Array();
@@ -196,7 +198,6 @@ const getChart = async (id, url, count) => {
 
 const clickUrl = event => {
   event.preventDefault();
-  console.log(event.currentTarget.id);
   chartContainer.item(0).id = event.currentTarget.id;
   const targetMeta = event.currentTarget.id;
   const apiMeta = targetMeta.split("||");

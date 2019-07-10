@@ -1,4 +1,5 @@
 header {
+  z-index: 10;
   width: 100%;
   margin: 0 auto;
   background-color: #1e1d2e;
@@ -21,7 +22,34 @@ header {
     display: flex;
     justify-content: space-between;
     .header__nav-list-item {
-      padding-right: 20px;
+      padding-right: 1rem;
+      padding-left: 1rem;
     }
+  }
+  .header__nav-list-item:hover {
+    background: #e14eca;
+    border-radius: 1rem;
+  }
+  .header__nav-list-item-sub-menu {
+    text-align: center;
+    margin-top: 0.05rem;
+    padding: 1rem;
+    margin-left: -5rem;
+    display: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(50, 90, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 1);
+  }
+  .header__nav-list-item:hover .header__nav-list-item-sub-menu {
+    background: #1e1d2e;
+    display: block;
+    position: absolute;
+    justify-content: space-between;
+  }
+  .header__nav-list-item:hover .header__nav-list-item-sub-menu ul {
+    display: block;
+  }
+  .header__nav-list-item-sub-menu ul li:hover {
+    background: #e14eca;
+    border-radius: 1rem;
   }
 }

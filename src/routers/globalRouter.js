@@ -24,7 +24,7 @@ globalRouter.get(routes.verify, onlyPublic, getVerify);
 
 globalRouter.get(routes.find, onlyPublic, getFindPassword);
 globalRouter.post(routes.find, onlyPublic, postFindPassword);
-globalRouter.post(routes.change, onlyPublic, postChangePassword);
+globalRouter.post(routes.change, postChangePassword);
 
 globalRouter.get(routes.login, onlyPublic, getLogin);
 globalRouter.post(routes.login, onlyPublic, postLogin);

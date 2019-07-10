@@ -10,10 +10,10 @@ export const getChart = async (req, res) => {
   const uri = req.url.split("/");
   if (!req.user) {
     email = process.env.mail;
-    hours = 36;
+    hours = uri[5];
   } else if (req.user.email != uri[2]) {
     email = process.env.mail;
-    hours = 36;
+    hours = uri[5];
   } else {
     email = uri[2];
     hours = uri[5];

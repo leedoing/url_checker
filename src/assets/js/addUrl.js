@@ -50,7 +50,7 @@ const clickSubmitAddBtn = async event => {
           response.comment;
         document.querySelector(".jsDivFileSize").style.display = "";
         setTimeout(() => {
-          window.location.href = "./";
+          window.location.href = "./home";
         }, 1000);
       } else {
         alert("Sorry, Not enough coin. Please purchase coin");

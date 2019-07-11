@@ -172,7 +172,7 @@ export const getVerify = async (req, res) => {
         email: EMAIL,
         passwd: hash,
         salt: salt,
-        purchase: 0
+        purchase: 1
       };
       try {
         User.create(user, (err, odie) => {
@@ -222,4 +222,10 @@ export const getChangePassword = (req, res) => {
     user: { email, purchase }
   } = req;
   res.render("change", { pageTitle: "Change", email, purchase });
+};
+
+export const getWithdrawal = (req, res) => {
+  res.render("withdrawal", {
+    pageTitle: "Withdrawal"
+  });
 };

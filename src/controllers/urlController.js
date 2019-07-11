@@ -67,7 +67,7 @@ export const postCheckUrl = async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          if (data.purchase < month || !data.purchase) {
+          if (data.purchase < month || !data.purchase || data.purchase < 1) {
             res.send("Sorry, Not enough coin. Please purchase coin");
           } else {
             if (!data.urls) {
@@ -87,25 +87,25 @@ export const postCheckUrl = async (req, res) => {
               data.urls.push(urls);
               urls = data.urls;
             }
+            User.update(
+              { email },
+              {
+                $PUT: {
+                  purchase: data.purchase - month,
+                  urls: urls
+                }
+              },
+              function(err) {
+                if (err) {
+                  console.log(err);
+                }
+              }
+            );
+            res.send({
+              result: true,
+              comment: `Complited. You can check after 5min! (DeadLine: ${deadLine})`
+            });
           }
-          User.update(
-            { email },
-            {
-              $PUT: {
-                purchase: data.purchase - month,
-                urls: urls
-              }
-            },
-            function(err) {
-              if (err) {
-                console.log(err);
-              }
-              res.send({
-                result: true,
-                comment: `Complited. You can check after 5min! (DeadLine: ${deadLine})`
-              });
-            }
-          );
         }
       });
     }

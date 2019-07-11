@@ -1,0 +1,16 @@
+extends layouts/main
+
+block content
+    .withdrawal
+        h5 If you do not login for 180 days, 
+        h5 your account will automatically be withdrawn 
+        h5 😂😢😭
+    .bg-modal
+        .modal-contents#jsModalContents
+            .coin= `You have ${purchase} Coin (1 Coin === 1 Month)`
+            .close#jsClose ❌
+            form#jsAddUrlForm
+                input.inputName(type="text", name="name", placeholder=`URL NAME`, required=true)#jsInputName
+                input.inputUrl(type="text", name="url", placeholder=`URL File Size 10MB Limit(e.g https://google.com)`, required=true)#jsInputUrl
+                input.inputMonth(type="number", name="number", placeholder=`Month`, min="1", max="12", required=true)#jsInputMonth
+                a(href="#", class="button", id="jsSubmitAddBtn") Submit

@@ -13,6 +13,8 @@ const USERS = "/users";
 const PROFILE = "/profile";
 const PURCHASE = "/purchase";
 const CHANGE_PASSWORD = "/change-password";
+const WITHDRAWAL = "/withdrawal";
+const PAYMENT = "/payment";
 
 // API
 const API = "/api";
@@ -37,6 +39,8 @@ const routes = {
   profile: PROFILE,
   purchase: PURCHASE,
   changePassword: CHANGE_PASSWORD,
+  withdrawal: WITHDRAWAL,
+  payment: PAYMENT,
   api: API,
   charts_get: CHARTS_GET,
   add_url: ADD_URL,

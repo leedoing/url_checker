@@ -4,10 +4,13 @@ import routes from "../routes";
 import bkfd2Password from "pbkdf2-password";
 import nodemailer from "nodemailer";
 import passport from "passport";
+import Stripe from "stripe";
 
 // dotenv.config();
 
 const hasher = bkfd2Password();
+const stripeSecret = process.env.PAYMENT_SK;
+const stripe = new Stripe(stripeSecret);
 const smtpTransport = nodemailer.createTransport({
   service: process.env.mail,
   auth: {
@@ -87,10 +90,10 @@ export const postFindPassword = (req, res) => {
       link +
       ">Click here to verify</a>"
   };
-  smtpTransport.sendMail(mailOptions, function(error, response) {
-    if (error) {
-      console.log(error);
-      res.end("error");
+  smtpTransport.sendMail(mailOptions, function(err, response) {
+    if (err) {
+      console.log(err);
+      res.end("err");
     } else {
       res.end("sent");
     }
@@ -128,10 +131,10 @@ export const postJoin = async (req, res) => {
                 link +
                 ">Click here to verify</a>"
             };
-            smtpTransport.sendMail(mailOptions, function(error, response) {
-              if (error) {
-                console.log(error);
-                res.end("error");
+            smtpTransport.sendMail(mailOptions, function(err, response) {
+              if (err) {
+                console.log(err);
+                res.end("err");
               } else {
                 res.end("sent");
               }
@@ -227,5 +230,32 @@ export const getChangePassword = (req, res) => {
 export const getWithdrawal = (req, res) => {
   res.render("withdrawal", {
     pageTitle: "Withdrawal"
+  });
+};
+
+export const getPayment = (req, res) => {
+  res.render("payment", {
+    pageTitle: "Payment"
+  });
+};
+
+export const postPayment = async (req, res) => {
+  const {
+    body: { stripeEmail, stripeToken }
+  } = req;
+  console.log(req.body);
+  const customer = await stripe.customers.create({
+    email: stripeEmail,
+    source: stripeToken
+  });
+  const charge = await stripe.charges.create({
+    amount: "1000",
+    currency: "usd",
+    customer: customer.id,
+    description: "test"
+  });
+  console.log(charge);
+  res.render("payment", {
+    pageTitle: "Payment"
   });
 };

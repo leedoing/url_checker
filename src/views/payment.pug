@@ -3,17 +3,24 @@ extends layouts/main
 block content
     .payment
         .payment-form.global-form
-            h5 The price of checking One URL is $10 per month
+            h5 The price of checking One URL is $10 per month ($10 === 1coin)
+            h5=`You have ${purchase} Coins`
             h5 If you want to cancel your order, please contact us
-            form(action=`${routes.users}${routes.payment}` method="post")
-                script(src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="pk_test_q9tw4E8zkBagkrm5dqlBHEtA00Cyv165Nl"
-                        data-amount="1000"
-                        data-name="blog.leedoing"
-                        data-description="Widget"
-                        data-image="/img/url.jpg"
-                        data-locale="auto"
-                        )
+            if !message
+                form(action=`${routes.users}${routes.payment}` method="post")
+                    script(src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_q9tw4E8zkBagkrm5dqlBHEtA00Cyv165Nl"
+                            data-amount="1000"
+                            data-name="URL CHECKER"
+                            data-description="Widget"
+                            data-image="/img/url.jpg"
+                            data-locale="auto"
+                            )
+            else if message
+                h5=message
+                if receipt
+                    a(href=receipt target="_blank")
+                        |LINK
     .bg-modal
         .modal-contents#jsModalContents
             .coin= `You have ${purchase} Coin (1 Coin === 1 Month)`

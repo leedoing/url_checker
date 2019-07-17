@@ -7,8 +7,8 @@ import request from "request-promise";
 export const home = async (req, res) => {
   let userMeta;
   try {
-    if (!req.user || req.user.email === process.env.mail) {
-      userMeta = await User.get(process.env.mail);
+    if (!req.user || req.user.email === process.env.mail_id) {
+      userMeta = await User.get(process.env.mail_id);
       res.render("home", {
         pageTitle: "Home",
         email: userMeta.email,
@@ -54,7 +54,6 @@ export const postCheckUrl = async (req, res) => {
       fileSize = response.headers["content-length"] / 1024.0 / 1024.0;
     });
     if (statusCode != 200) {
-      console.log(statusCode);
       res.send(`Please check URL(HTTP(S) Status: ${statusCode})`);
     } else if (isNaN(fileSize)) {
       res.send(`Can't get a content-length header. Please check URL!`);

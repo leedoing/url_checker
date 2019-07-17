@@ -1,15 +1,21 @@
 .chart
     .chart__header
+        if !loggedUser
+            button.chart__button__delete(style="visibility: hidden") DELETE
+            button.chart__button__3hours 3 HOURS
+            button.chart__button__day DAY
+            button.chart__button__week WEEK
+            button.chart__button__2weeks 2WEEKS
+        else
             button.chart__button__delete(title="If you click this button, you can not check this url") DELETE
             button.chart__button__3hours 3 HOURS
             button.chart__button__day DAY
             button.chart__button__week WEEK
             button.chart__button__2weeks 2WEEKS
-
     .chart__containers
         #chart__circle
     if !loggedUser
-        .chart__container(id=`lluckyy77@gmail.com||https://www.google.com/tia/tia.png||3`)
+        .chart__container(id=`support@url-checker.com||https://url-checker-sample.s3-us-west-1.amazonaws.com/4KB||3`)
     else if urls
         .chart__container(id=`${loggedUser.email}||${urls[0].url}||3`)
         //- span=loggedUser.email

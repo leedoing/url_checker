@@ -2,17 +2,25 @@ import moment from "moment";
 import routes from "../routes";
 import User from "../models/User";
 import Url from "../models/Url";
-const LOCATIONLIST = ["KR", "US", "DE"];
+const LOCATIONLIST = [
+  "US(WEST)",
+  "US(EAST)",
+  "EU",
+  "ASIA(EAST)",
+  "ASIA(SOUTHEAST)",
+  "INDIA",
+  "BRAZIL"
+];
 
 export const getChart = async (req, res) => {
   let email;
   let hours;
   const uri = req.url.split("/");
   if (!req.user) {
-    email = process.env.mail;
+    email = process.env.mail_id;
     hours = uri[5];
   } else if (req.user.email != uri[2]) {
-    email = process.env.mail;
+    email = process.env.mail_id;
     hours = uri[5];
   } else {
     email = uri[2];

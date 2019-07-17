@@ -9,7 +9,7 @@ import Stripe from "stripe";
 // dotenv.config();
 
 const hasher = bkfd2Password();
-const stripeSecret = process.env.PAYMENT_SK;
+const stripeSecret = process.env.PAYMENT_SK_TEST;
 const stripe = new Stripe(stripeSecret);
 const smtpTransport = nodemailer.createTransport({
   service: process.env.mail,
@@ -95,7 +95,7 @@ export const postFindPassword = (req, res) => {
       console.log(err);
       res.end("err");
     } else {
-      res.end("sent");
+      res.end("sent email");
     }
   });
   res.status(200);
@@ -233,29 +233,94 @@ export const getWithdrawal = (req, res) => {
   });
 };
 
-export const getPayment = (req, res) => {
+export const getPayment = async (req, res) => {
+  const {
+    user: { email }
+  } = req;
+  const userMeta = await User.get(email);
   res.render("payment", {
-    pageTitle: "Payment"
+    pageTitle: "Payment",
+    purchase: userMeta.purchase
   });
 };
 
 export const postPayment = async (req, res) => {
   const {
-    body: { stripeEmail, stripeToken }
+    body: { stripeEmail, stripeToken },
+    user: { email }
   } = req;
-  console.log(req.body);
-  const customer = await stripe.customers.create({
-    email: stripeEmail,
-    source: stripeToken
-  });
-  const charge = await stripe.charges.create({
-    amount: "1000",
-    currency: "usd",
-    customer: customer.id,
-    description: "test"
-  });
-  console.log(charge);
-  res.render("payment", {
-    pageTitle: "Payment"
-  });
+  try {
+    const customer = await stripe.customers.create({
+      email: stripeEmail,
+      source: stripeToken
+    });
+    const charge = await stripe.charges.create({
+      amount: 1000,
+      currency: "usd",
+      customer: customer.id,
+      description: "URL-CHECKER 1 coin"
+    });
+    await stripe.invoiceItems.create({
+      amount: 1000,
+      currency: "usd",
+      customer: charge.customer,
+      description: "URL-CHECKER 1 coin"
+    });
+    const invoice = await stripe.invoices.create({
+      customer: charge.customer,
+      collection_method: "send_invoice",
+      days_until_due: 30
+    });
+    await stripe.invoices.sendInvoice(invoice.id, function(err, invoice) {
+      const mailOptions = {
+        to: email,
+        subject: "[URL CHECKER🚦] Please check invoce",
+        html:
+          "Please Click on the link to invoice.<br><a href=" +
+          invoice.hosted_invoice_url +
+          ">Click her to invoce</a>"
+      };
+      smtpTransport.sendMail(mailOptions, function(err, response) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("sent email");
+        }
+      });
+    });
+    if (charge.status == "succeeded") {
+      await User.update(
+        {
+          email
+        },
+        {
+          $ADD: {
+            purchase: +1
+          }
+        }
+      );
+      const userMeta = await User.get(email);
+      res.render("payment", {
+        pageTitle: "Payment",
+        message: "Succeeded to charge, check a receipt",
+        purchase: userMeta.purchase,
+        receipt: `${charge.receipt_url}`
+      });
+    } else {
+      const userMeta = await User.get(email);
+      res.render("payment", {
+        pageTitle: "Payment",
+        message: "Failed to charge",
+        purchase: userMeta.purchase
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    const userMeta = await User.get(email);
+    res.render("payment", {
+      pageTitle: "Payment",
+      message: "Failed to charge",
+      purchase: userMeta.purchase
+    });
+  }
 };

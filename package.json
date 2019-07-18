@@ -10,7 +10,7 @@
     "build:assets_w": "cd src && cross-env WEBPACK_ENV=production webpack",
     "copyAll_w": "xcopy .\\src\\static .\\build\\static\\ /s /y && xcopy .\\src\\views .\\build\\views\\ /s /y",
     "build_w": "npm run build:server_w && npm run build:assets_w && npm run copyAll_w",
-    "start_w": "cross-env PRODUCTION=true pm2 start build/init.js -i 0 --name 'we-tube'",
+    "start_w": "cross-env PRODUCTION=true pm2 start build/init.js -i 0 --name 'url-checker'",
     "prebuild_w": "rd /s /q build",
     "prestart_w": "npm run build_w",
     "dev:server": "nodemon --exec babel-node src/init.js --delay 2 --ignore '.scss' --ignore 'static' ",
@@ -19,7 +19,7 @@
     "build:assets": "cd src && WEBPACK_ENV=production webpack",
     "copyAll": "cp -R src/static build && cp -R src/views build",
     "build": "npm run build:server && npm run build:assets && npm run copyAll",
-    "start": "PRODUCTION=true pm2 start build/init.js -i 0 --name 'we-tube'",
+    "start": "PRODUCTION=true pm2 start build/init.js -i 0 --name 'url-checker'",
     "prebuild": "rm -rf build",
     "prestart": "npm run build",
     "tunnel": "ngrok http 4000"

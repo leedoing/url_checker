@@ -9,7 +9,7 @@ import Stripe from "stripe";
 // dotenv.config();
 
 const hasher = bkfd2Password();
-const stripeSecret = process.env.PAYMENT_SK_TEST;
+const stripeSecret = process.env.PAYMENT_SK;
 const stripe = new Stripe(stripeSecret);
 const smtpTransport = nodemailer.createTransport({
   service: process.env.mail,
@@ -302,7 +302,8 @@ export const postPayment = async (req, res) => {
       const userMeta = await User.get(email);
       res.render("payment", {
         pageTitle: "Payment",
-        message: "Succeeded to charge, check a receipt",
+        message:
+          "Thank you for your purchase. The invoice was sent to your email, Please check it",
         purchase: userMeta.purchase,
         receipt: `${charge.receipt_url}`
       });

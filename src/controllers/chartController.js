@@ -9,7 +9,7 @@ const LOCATIONLIST = [
   "ASIA(EAST)",
   "ASIA(SOUTHEAST)",
   "INDIA",
-  "BRAZIL"
+  "AMERICA(SOUTH)"
 ];
 
 export const getChart = async (req, res) => {

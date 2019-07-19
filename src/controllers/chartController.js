@@ -17,10 +17,10 @@ export const getChart = async (req, res) => {
   let hours;
   const uri = req.url.split("/");
   if (!req.user) {
-    email = process.env.mail_id;
+    email = process.env.MAIL_ID;
     hours = uri[5];
   } else if (req.user.email != uri[2]) {
-    email = process.env.mail_id;
+    email = process.env.MAIL_ID;
     hours = uri[5];
   } else {
     email = uri[2];
@@ -38,7 +38,7 @@ export const getChart = async (req, res) => {
     // let userMeta = await User.get(email);
     LOCATIONLIST.forEach(location => {
       const hash = Buffer.from(
-        process.env.secret + email + url + location
+        process.env.SECRET + email + url + location
       ).toString("base64");
       hashList.push(hash);
     });

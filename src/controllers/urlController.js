@@ -7,8 +7,8 @@ import request from "request-promise";
 export const home = async (req, res) => {
   let userMeta;
   try {
-    if (!req.user || req.user.email === process.env.mail_id) {
-      userMeta = await User.get(process.env.mail_id);
+    if (!req.user || req.user.email === process.env.MAIL_ID) {
+      userMeta = await User.get(process.env.MAIL_ID);
       res.render("home", {
         pageTitle: "Home",
         email: userMeta.email,

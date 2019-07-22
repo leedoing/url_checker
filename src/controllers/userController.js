@@ -255,13 +255,13 @@ export const postPayment = async (req, res) => {
       source: stripeToken
     });
     const charge = await stripe.charges.create({
-      amount: 1000,
+      amount: 10000,
       currency: "usd",
       customer: customer.id,
       description: "URL-CHECKER 1 coin"
     });
     await stripe.invoiceItems.create({
-      amount: 1000,
+      amount: 10000,
       currency: "usd",
       customer: charge.customer,
       description: "URL-CHECKER 1 coin"

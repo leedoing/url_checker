@@ -57,7 +57,7 @@ export const postCheckUrl = async (req, res) => {
       res.send(`Please check URL(HTTP(S) Status: ${statusCode})`);
     } else if (isNaN(fileSize)) {
       res.send(`Can't get a content-length header. Please check URL!`);
-    } else if (fileSize > 10) {
+    } else if (fileSize > 2) {
       res.send(
         `You uploaded more than 10MB of files(${fileSize.toFixed(1)} MB)`
       );

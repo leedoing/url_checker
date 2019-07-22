@@ -219,7 +219,7 @@ const clickUrl = event => {
   }
 };
 
-async function init() {
+const init = async () => {
   if (chartContainer[0]) {
     const apiMeta = chartContainer.item(0).id.split("||");
     const id = apiMeta[0];
@@ -238,7 +238,7 @@ async function init() {
   dayBtn[0].addEventListener("click", clickUrl);
   weekBtn[0].addEventListener("click", clickUrl);
   twoWeeksBtn[0].addEventListener("click", clickUrl);
-}
+};
 
 if (chartContainer && hourBtn[0]) {
   init();

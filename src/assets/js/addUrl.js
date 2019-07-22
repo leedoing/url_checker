@@ -96,12 +96,12 @@ const createMessage = () => {
   document.querySelector(".jsDivMonthFormat").style.display = "none";
 };
 
-async function init() {
+const init = async () => {
   createMessage();
   addBtn.addEventListener("click", clickAddUrl);
   closeBtn.addEventListener("click", clickCloseAddUrl);
   submitAddBtn.addEventListener("click", clickSubmitAddBtn);
-}
+};
 
 if (addBtn) {
   init();

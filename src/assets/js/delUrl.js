@@ -21,9 +21,9 @@ const clickDelUrl = async event => {
   }, 1000);
 };
 
-async function init() {
+const init = async () => {
   delUrl[0].addEventListener("click", clickDelUrl);
-}
+};
 
 if (chartContainer && delUrl[0]) {
   init();

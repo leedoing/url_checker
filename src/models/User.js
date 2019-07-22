@@ -1,6 +1,5 @@
 import dynamoose from "dynamoose";
 import "../db";
-import bkfd2Password from "pbkdf2-password";
 
 const UserSchema = new dynamoose.Schema({
   email: {

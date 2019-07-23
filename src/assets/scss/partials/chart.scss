@@ -6,8 +6,9 @@
     background-color: #1e1d2e;
     width: 100%;
     padding-left: 33px;
+    float: left;
     button:first-child {
-      margin-right: 965px;
+      float: left;
       background: #fd5d93;
       background-image: linear-gradient(
         to bottom left,
@@ -22,7 +23,15 @@
       box-shadow: none;
       color: #fff;
     }
+    button:nth-child(2) {
+      margin-right: 1.3rem;
+    }
+    button:not(:first-child) {
+      float: right;
+    }
+
     button {
+      margin-right: 1.5rem;
       width: 7rem;
       background: #344675;
       background-image: linear-gradient(

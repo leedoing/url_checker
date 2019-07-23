@@ -2,16 +2,16 @@
     .chart__header
         if !loggedUser
             button.chart__button__delete(style="visibility: hidden") DELETE
-            button.chart__button__3hours 3 HOURS
-            button.chart__button__day DAY
-            button.chart__button__week WEEK
             button.chart__button__2weeks 2WEEKS
+            button.chart__button__week WEEK
+            button.chart__button__day DAY
+            button.chart__button__3hours 3 HOURS
         else
             button.chart__button__delete(title="If you click this button, you can not check this url") DELETE
-            button.chart__button__3hours 3 HOURS
-            button.chart__button__day DAY
-            button.chart__button__week WEEK
             button.chart__button__2weeks 2WEEKS
+            button.chart__button__week WEEK
+            button.chart__button__day DAY
+            button.chart__button__3hours 3 HOURS
     .chart__containers
         #chart__circle
     if !loggedUser

@@ -1,12 +1,12 @@
 .sidebar {
-  margin: 5% 2% 0 1%;
+  margin: 5% 0% 0 0%;
   top: 10%;
+  width: 17%;
   position: -webkit-sticky;
   position: sticky;
   align-self: flex-start;
   box-shadow: 0 4px 6px rgba(50, 90, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 1);
   ul {
-    width: 11vw;
     list-style: none;
     padding: 16% 0;
     font-size: 1.5rem;

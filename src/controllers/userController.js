@@ -12,10 +12,10 @@ const hasher = bkfd2Password();
 const stripeSecret = process.env.PAYMENT_SK;
 const stripe = new Stripe(stripeSecret);
 const smtpTransport = nodemailer.createTransport({
-  service: "Gmail",
+  service: "gmail",
   auth: {
-    user: process.env.mail_id,
-    pass: process.env.mail_pw
+    user: process.env.MAIL_ID,
+    pass: process.env.MAIL_PW
   }
 });
 let RAND;

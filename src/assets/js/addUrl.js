@@ -53,7 +53,7 @@ const clickSubmitAddBtn = async event => {
           window.location.href = "/";
         }, 1000);
       } else {
-        alert("Sorry, Not enough coin. Please purchase coin");
+        alert("Sorry, Please check a message");
         document.getElementsByClassName(
           "jsDivFileSize"
         )[0].innerText = response;

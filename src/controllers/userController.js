@@ -87,7 +87,9 @@ export const postFindPassword = (req, res) => {
     to: email,
     subject: "[URL CHECKER🚦] Please confirm your password change",
     html:
-      "Please Click on the link to verify your email.<br><a href=" +
+      "Please Click on the link to verify your email.<br>" +
+      "If you choose not to approve this request, you do not need to do anything.<br>" +
+      "<a href=" +
       link +
       ">Click here to verify</a>"
   };
@@ -128,7 +130,9 @@ export const postJoin = async (req, res) => {
               to: email,
               subject: "[URL CHECKER🚦] Please confirm your Email account",
               html:
-                "Please Click on the link to verify your email.<br><a href=" +
+                "Please Click on the link to verify your email. <br>" +
+                "If you choose not to approve this request, you do not need to do anything.<br>" +
+                "<a href=" +
                 link +
                 ">Click here to verify</a>"
             };

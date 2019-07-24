@@ -5,6 +5,10 @@ header.header
         ul.header__nav-list
             if !loggedUser
                 li.header__nav-list-item
+                    a.header__nav-list-item-link(href="https://url-checker-sample.s3-us-west-1.amazonaws.com/url_checker_manual.pdf" target="_blank") 
+                        |Manual
+                        i.fas.fa-book
+                li.header__nav-list-item
                     a.header__nav-list-item-link(href=routes.join) 
                         |Join 
                         i.fas.fa-user-plus
@@ -13,6 +17,10 @@ header.header
                         |Log In 
                         i.fas.fa-sign-in-alt
             else
+                li.header__nav-list-item
+                    a.header__nav-list-item-link(href="https://url-checker-sample.s3-us-west-1.amazonaws.com/url_checker_manual.pdf" target="_blank") 
+                        |Manual
+                        i.fas.fa-book
                 li.header__nav-list-item
                     a.header__nav-list-item-link#jsAddUrl()
                         |Add URL 

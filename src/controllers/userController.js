@@ -18,7 +18,8 @@ const smtpTransport = nodemailer.createTransport({
     pass: process.env.MAIL_PW
   }
 });
-let RAND;
+let TODAY = new Date().getDate();
+let RAND = Buffer.from(process.env.SECRET + TODAY).toString("base64");
 let PASSWD;
 let EMAIL;
 
@@ -73,7 +74,7 @@ export const postFindPassword = (req, res) => {
   const {
     body: { email }
   } = req;
-  RAND = Math.floor(Math.random() * 100 + 54);
+  // RAND = Math.floor(Math.random() * 100 + 54);
   EMAIL = email;
   const link =
     "http://" +
@@ -117,7 +118,7 @@ export const postJoin = async (req, res) => {
       } else {
         if (!data) {
           if (password === password2) {
-            RAND = Math.floor(Math.random() * 100 + 54);
+            // RAND = Math.floor(Math.random() * 100 + 54);
             EMAIL = email;
             PASSWD = password;
             const host = req.get("host");

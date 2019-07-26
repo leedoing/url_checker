@@ -6,6 +6,10 @@
   position: sticky;
   align-self: flex-start;
   box-shadow: 0 4px 6px rgba(50, 90, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 1);
+  .map-img {
+    width: 17rem;
+    border-radius: 1.5rem;
+  }
   ul {
     list-style: none;
     padding: 16% 0;

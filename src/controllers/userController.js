@@ -9,7 +9,7 @@ import Stripe from "stripe";
 // dotenv.config();
 
 const hasher = bkfd2Password();
-const stripeSecret = process.env.PAYMENT_SK;
+const stripeSecret = process.env.PAYMENT_SK_TEST;
 const stripe = new Stripe(stripeSecret);
 const smtpTransport = nodemailer.createTransport({
   service: "gmail",
@@ -251,6 +251,15 @@ export const getPayment = async (req, res) => {
 };
 
 export const postPayment = async (req, res) => {
+  const coin = req.url.split("/")[2];
+  let amount;
+  if (coin == 1) {
+    amount = 1000;
+  } else if (coin == 6) {
+    amount = 5000;
+  } else {
+    amount = 10000;
+  }
   const {
     body: { stripeEmail, stripeToken },
     user: { email }
@@ -261,13 +270,13 @@ export const postPayment = async (req, res) => {
       source: stripeToken
     });
     const charge = await stripe.charges.create({
-      amount: 990,
+      amount: amount,
       currency: "usd",
       customer: customer.id,
       description: "URL-CHECKER 1 coin"
     });
     await stripe.invoiceItems.create({
-      amount: 990,
+      amount: amount,
       currency: "usd",
       customer: charge.customer,
       description: "URL-CHECKER 1 coin"
@@ -301,7 +310,7 @@ export const postPayment = async (req, res) => {
         },
         {
           $ADD: {
-            purchase: +1
+            purchase: +coin
           }
         }
       );
@@ -309,7 +318,8 @@ export const postPayment = async (req, res) => {
       res.render("payment", {
         pageTitle: "Payment",
         message:
-          "Thank you for your purchase. The invoice was sent to your email, Please check it",
+          "Thank you for your purchase. " +
+          "The invoice was sent to your email. Please check ",
         purchase: userMeta.purchase,
         receipt: `${charge.receipt_url}`
       });

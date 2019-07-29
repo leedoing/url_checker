@@ -16,4 +16,11 @@
     font-size: 3rem;
     color: #ac53f5;
   }
+  .stripe-form {
+    display: flex;
+    form {
+      margin: 0.5rem;
+      width: 13rem;
+    }
+  }
 }

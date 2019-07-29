@@ -13,6 +13,6 @@ const userRouter = express.Router();
 userRouter.get(routes.changePassword, onlyPrivate, getChangePassword);
 userRouter.get(routes.withdrawal, onlyPrivate, getWithdrawal);
 userRouter.get(routes.payment, onlyPrivate, getPayment);
-userRouter.post(routes.payment, onlyPrivate, postPayment);
+userRouter.post(routes.purchase, onlyPrivate, postPayment);
 
 export default userRouter;

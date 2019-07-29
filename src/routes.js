@@ -11,10 +11,10 @@ const CHANGE = "/change";
 // Users
 const USERS = "/users";
 const PROFILE = "/profile";
-const PURCHASE = "/purchase";
 const CHANGE_PASSWORD = "/change-password";
 const WITHDRAWAL = "/withdrawal";
 const PAYMENT = "/payment";
+const PURCHASE = "/payment/:coin";
 
 // API
 const API = "/api";
@@ -37,10 +37,10 @@ const routes = {
   change: CHANGE,
   users: USERS,
   profile: PROFILE,
-  purchase: PURCHASE,
   changePassword: CHANGE_PASSWORD,
   withdrawal: WITHDRAWAL,
   payment: PAYMENT,
+  purchase: PURCHASE,
   api: API,
   charts_get: CHARTS_GET,
   add_url: ADD_URL,

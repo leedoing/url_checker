@@ -7,7 +7,6 @@ const delUrl = document.getElementsByClassName("chart__button__delete");
 const clickDelUrl = async event => {
   event.preventDefault();
   const targetMeta = event.currentTarget.id;
-  console.log(targetMeta);
   const deleteInfo = targetMeta.split("||");
   const email = deleteInfo[0];
   const url = deleteInfo[1];

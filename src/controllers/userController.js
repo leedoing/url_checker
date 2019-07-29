@@ -131,6 +131,7 @@ export const postJoin = async (req, res) => {
               subject: "[URL CHECKER🚦] Please confirm your Email account",
               html:
                 "Please Click on the link to verify your email. <br>" +
+                "You can use 30 DAY FREE TRIAL<br>" +
                 "If you choose not to approve this request, you do not need to do anything.<br>" +
                 "<a href=" +
                 link +

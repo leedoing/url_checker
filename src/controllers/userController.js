@@ -9,7 +9,7 @@ import Stripe from "stripe";
 // dotenv.config();
 
 const hasher = bkfd2Password();
-const stripeSecret = process.env.PAYMENT_SK_TEST;
+const stripeSecret = process.env.PAYMENT_SK;
 const stripe = new Stripe(stripeSecret);
 const smtpTransport = nodemailer.createTransport({
   service: "gmail",

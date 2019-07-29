@@ -3,14 +3,14 @@ extends layouts/main
 block content
     .payment
         .payment-form.global-form
-            h5 The price of checking One URL is $100 per month ($100 === 1coin)
+            h5 The price of checking One URL is $9.9 per month ($9.9 === 1coin)
             h5=`You have ${purchase} Coins`
             h5 If you want to cancel your order, please contact us
             if !message
                 form(action=`${routes.users}${routes.payment}` method="post")
                     script(src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="pk_live_PdBYhVYDPXApvHUPRllX3peU00uJWwLo5t"
-                            data-amount="10000"
+                            data-amount="990"
                             data-name="URL CHECKER"
                             data-description="Widget"
                             data-image="/img/url.jpg"

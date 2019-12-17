@@ -2,53 +2,54 @@ extends layouts/main
 
 block content
     .payment
-        .payment-form.global-form
-            h5 The price of checking One URL is $10 per month ($10 === 1coin)
-            h5=`You have ${purchase} Coins`
-            h5 If you want to cancel your order, please contact us
-            .stripe-form
-                if !message
-                    form(action=`${routes.users}${routes.payment}/1` method="post")
-                        script(src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="pk_live_PdBYhVYDPXApvHUPRllX3peU00uJWwLo5t"
-                                data-amount="1000"
-                                data-label="1 coin ($10)"
-                                data-name="URL CHECKER"
-                                data-description="Widget"
-                                data-image="https://url-checker-sample.s3-us-west-1.amazonaws.com/favicon.ico"
-                                data-locale="auto"
-                                )
-                    form(action=`${routes.users}${routes.payment}/6` method="post")
-                        script(src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="pk_live_PdBYhVYDPXApvHUPRllX3peU00uJWwLo5t"
-                                data-amount="5000"
-                                data-label="6 coin ($50)"
-                                data-name="URL CHECKER"
-                                data-description="Widget"
-                                data-image="https://url-checker-sample.s3-us-west-1.amazonaws.com/favicon.ico"
-                                data-locale="auto"
-                                )
-                    form(action=`${routes.users}${routes.payment}/15` method="post")
-                        script(src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="pk_live_PdBYhVYDPXApvHUPRllX3peU00uJWwLo5t"
-                                data-amount="10000"
-                                data-label="15 coin ($100)"
-                                data-name="URL CHECKER"
-                                data-description="Widget"
-                                data-image="https://url-checker-sample.s3-us-west-1.amazonaws.com/favicon.ico"
-                                data-locale="auto"
-                                )
-                else if message
-                    h5=message
-                        if receipt
-                        a(href=receipt target="_blank")
-                            |LINK
-    .bg-modal
-        .modal-contents#jsModalContents
-            .coin= `You have ${purchase} Coin (1 Coin === 1 Month)`
-            .close#jsClose ❌
-            form#jsAddUrlForm
-                input.inputName(type="text", name="name", placeholder=`URL NAME`, required=true)#jsInputName
-                input.inputUrl(type="text", name="url", placeholder=`URL File Size 2MB Limit(e.g https://google.com)`, required=true)#jsInputUrl
-                input.inputMonth(type="number", name="number", placeholder=`Month`, min="1", max="12", required=true)#jsInputMonth
-                a(href="#", class="button", id="jsSubmitAddBtn") Submit
+        .payment-form.global-form(style="margin-top: 285px;")
+            //- h5 The price of checking One URL is $10 per month ($10 === 1coin)
+            //- h5=`You have ${purchase} Coins`
+            h5 If you want to use a url-checker, please send a mail 
+            a(href="lluckyy@gscdn.com" style="font-size: 2.5rem;margin-top: 0px;") lluckyy@gscdn.com
+    //-         .stripe-form
+    //-             if !message
+    //-                 form(action=`${routes.users}${routes.payment}/1` method="post")
+    //-                     script(src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    //-                             data-key="pk_live_PdBYhVYDPXApvHUPRllX3peU00uJWwLo5t"
+    //-                             data-amount="1000"
+    //-                             data-label="1 coin ($10)"
+    //-                             data-name="URL CHECKER"
+    //-                             data-description="Widget"
+    //-                             data-image="https://url-checker-sample.s3-us-west-1.amazonaws.com/favicon.ico"
+    //-                             data-locale="auto"
+    //-                             )
+    //-                 form(action=`${routes.users}${routes.payment}/6` method="post")
+    //-                     script(src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    //-                             data-key="pk_live_PdBYhVYDPXApvHUPRllX3peU00uJWwLo5t"
+    //-                             data-amount="5000"
+    //-                             data-label="6 coin ($50)"
+    //-                             data-name="URL CHECKER"
+    //-                             data-description="Widget"
+    //-                             data-image="https://url-checker-sample.s3-us-west-1.amazonaws.com/favicon.ico"
+    //-                             data-locale="auto"
+    //-                             )
+    //-                 form(action=`${routes.users}${routes.payment}/15` method="post")
+    //-                     script(src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    //-                             data-key="pk_live_PdBYhVYDPXApvHUPRllX3peU00uJWwLo5t"
+    //-                             data-amount="10000"
+    //-                             data-label="15 coin ($100)"
+    //-                             data-name="URL CHECKER"
+    //-                             data-description="Widget"
+    //-                             data-image="https://url-checker-sample.s3-us-west-1.amazonaws.com/favicon.ico"
+    //-                             data-locale="auto"
+    //-                             )
+    //-             else if message
+    //-                 h5=message
+    //-                     if receipt
+    //-                     a(href=receipt target="_blank")
+    //-                         |LINK
+    //- .bg-modal
+    //-     .modal-contents#jsModalContents
+    //-         .coin= `You have ${purchase} Coin (1 Coin === 1 Month)`
+    //-         .close#jsClose ❌
+    //-         form#jsAddUrlForm
+    //-             input.inputName(type="text", name="name", placeholder=`URL NAME`, required=true)#jsInputName
+    //-             input.inputUrl(type="text", name="url", placeholder=`URL File Size 2MB Limit(e.g https://google.com)`, required=true)#jsInputUrl
+    //-             input.inputMonth(type="number", name="number", placeholder=`Month`, min="1", max="12", required=true)#jsInputMonth
+    //-             a(href="#", class="button", id="jsSubmitAddBtn") Submit

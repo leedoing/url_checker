@@ -3,6 +3,9 @@ import routes from "../routes";
 import User from "../models/User";
 import Url from "../models/Url";
 const LOCATIONLIST = [
+  "KR(SK)",
+  "KR(KT)",
+  "KR(LG)",
   "US(WEST)",
   "US(EAST)",
   "EU",

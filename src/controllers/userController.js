@@ -15,8 +15,8 @@ const smtpTransport = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.MAIL_ID,
-    pass: process.env.MAIL_PW
-  }
+    pass: process.env.MAIL_PW,
+  },
 });
 let TODAY = new Date().getDate();
 let RAND = Buffer.from(process.env.SECRET + TODAY).toString("base64");
@@ -25,13 +25,13 @@ let EMAIL;
 
 export const postChangePassword = async (req, res) => {
   const {
-    body: { email, password, password2 }
+    body: { email, password, password2 },
   } = req;
   if (password === password2) {
     await hasher({ password: password }, (err, pass, salt, hash) => {
       const user = {
         passwd: hash,
-        salt: salt
+        salt: salt,
       };
       try {
         User.update(
@@ -39,10 +39,10 @@ export const postChangePassword = async (req, res) => {
           {
             $PUT: {
               passwd: user.passwd,
-              salt: user.salt
-            }
+              salt: user.salt,
+            },
           },
-          function(err) {
+          function (err) {
             if (err) {
               console.log(err);
             }
@@ -51,7 +51,7 @@ export const postChangePassword = async (req, res) => {
         res.status(200);
         res.render("change", {
           pageTitle: "Change",
-          message: "Complited change password"
+          message: "Complited change password",
         });
       } catch (err) {
         res.send(err);
@@ -61,7 +61,7 @@ export const postChangePassword = async (req, res) => {
     res.status(400);
     res.render("change", {
       pageTitle: "Change",
-      message: "Password doesn't match"
+      message: "Password doesn't match",
     });
   }
 };
@@ -72,7 +72,7 @@ export const getFindPassword = (req, res) => {
 
 export const postFindPassword = (req, res) => {
   const {
-    body: { email }
+    body: { email },
   } = req;
   // RAND = Math.floor(Math.random() * 100 + 54);
   EMAIL = email;
@@ -91,9 +91,9 @@ export const postFindPassword = (req, res) => {
       "If you choose not to approve this request, you do not need to do anything.<br>" +
       "<a href=" +
       link +
-      ">Click here to verify</a>"
+      ">Click here to verify</a>",
   };
-  smtpTransport.sendMail(mailOptions, function(err, response) {
+  smtpTransport.sendMail(mailOptions, function (err, response) {
     if (err) {
       console.log(err);
       res.end("err");
@@ -104,14 +104,14 @@ export const postFindPassword = (req, res) => {
   res.status(200);
   res.render("find", {
     pageTitle: "Find",
-    message: "Send a Message, Check your email"
+    message: "Send a Message, Check your email",
   });
 };
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
   const {
-    body: { email, password, password2 }
+    body: { email, password, password2 },
   } = req;
   try {
     await User.get({ email: email }, (err, data) => {
@@ -135,9 +135,9 @@ export const postJoin = async (req, res) => {
                 "If you choose not to approve this request, you do not need to do anything.<br>" +
                 "<a href=" +
                 link +
-                ">Click here to verify</a>"
+                ">Click here to verify</a>",
             };
-            smtpTransport.sendMail(mailOptions, function(err, response) {
+            smtpTransport.sendMail(mailOptions, function (err, response) {
               if (err) {
                 console.log(err);
                 res.end("err");
@@ -148,20 +148,20 @@ export const postJoin = async (req, res) => {
             res.status(200);
             res.render("join", {
               pageTitle: "Join",
-              message: "Send a Message, Check your email"
+              message: "Send a Message, Check your email",
             });
           } else {
             res.status(400);
             res.render("join", {
               pageTitle: "Join",
-              message: "Password doesn't match"
+              message: "Password doesn't match",
             });
           }
         } else {
           res.status(400);
           res.render("join", {
             pageTitle: "Join",
-            message: "This email has already been subscribed"
+            message: "This email has already been subscribed",
           });
         }
       }
@@ -173,7 +173,7 @@ export const postJoin = async (req, res) => {
 
 export const getVerify = async (req, res) => {
   const {
-    query: { id, name, email }
+    query: { id, name, email },
   } = req;
   if (id == RAND && name == "join") {
     await hasher({ password: PASSWD }, (err, pass, salt, hash) => {
@@ -181,7 +181,7 @@ export const getVerify = async (req, res) => {
         email: EMAIL,
         passwd: hash,
         salt: salt,
-        purchase: 1
+        purchase: 1,
       };
       try {
         User.create(user, (err, odie) => {
@@ -195,20 +195,20 @@ export const getVerify = async (req, res) => {
         res.status(400);
         res.render("join", {
           pageTitle: "Join",
-          message: "Expired authentication token"
+          message: "Expired authentication token",
         });
       }
     });
   } else if (id == RAND && name == "change") {
     res.render("change", {
       pageTitle: "Change",
-      email: email
+      email: email,
     });
   } else {
     res.status(400);
     res.render("join", {
       pageTitle: "Join",
-      message: "Expired authentication token"
+      message: "Expired authentication token",
     });
   }
 };
@@ -218,7 +218,7 @@ export const getLogin = (req, res) =>
 
 export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
-  successRedirect: routes.home
+  successRedirect: routes.home,
 });
 
 export const logout = (req, res) => {
@@ -228,25 +228,25 @@ export const logout = (req, res) => {
 
 export const getChangePassword = (req, res) => {
   const {
-    user: { email, purchase }
+    user: { email, purchase },
   } = req;
   res.render("change", { pageTitle: "Change", email, purchase });
 };
 
 export const getWithdrawal = (req, res) => {
   res.render("withdrawal", {
-    pageTitle: "Withdrawal"
+    pageTitle: "Withdrawal",
   });
 };
 
 export const getPayment = async (req, res) => {
   const {
-    user: { email }
+    user: { email },
   } = req;
   const userMeta = await User.get(email);
   res.render("payment", {
     pageTitle: "Payment",
-    purchase: userMeta.purchase
+    purchase: userMeta.purchase,
   });
 };
 
@@ -262,40 +262,40 @@ export const postPayment = async (req, res) => {
   }
   const {
     body: { stripeEmail, stripeToken },
-    user: { email }
+    user: { email },
   } = req;
   try {
     const customer = await stripe.customers.create({
       email: stripeEmail,
-      source: stripeToken
+      source: stripeToken,
     });
     const charge = await stripe.charges.create({
       amount: amount,
       currency: "usd",
       customer: customer.id,
-      description: "URL-CHECKER 1 coin"
+      description: "URL-CHECKER 1 coin",
     });
     await stripe.invoiceItems.create({
       amount: amount,
       currency: "usd",
       customer: charge.customer,
-      description: "URL-CHECKER 1 coin"
+      description: "URL-CHECKER 1 coin",
     });
     const invoice = await stripe.invoices.create({
       customer: charge.customer,
       collection_method: "send_invoice",
-      days_until_due: 30
+      days_until_due: 30,
     });
-    await stripe.invoices.sendInvoice(invoice.id, function(err, invoice) {
+    await stripe.invoices.sendInvoice(invoice.id, function (err, invoice) {
       const mailOptions = {
         to: email,
         subject: "[URL CHECKER🚦] Please check invoce",
         html:
           "Please Click on the link to invoice.<br><a href=" +
           invoice.hosted_invoice_url +
-          ">Click her to invoce</a>"
+          ">Click her to invoce</a>",
       };
-      smtpTransport.sendMail(mailOptions, function(err, response) {
+      smtpTransport.sendMail(mailOptions, function (err, response) {
         if (err) {
           console.log(err);
         } else {
@@ -306,12 +306,12 @@ export const postPayment = async (req, res) => {
     if (charge.status == "succeeded") {
       await User.update(
         {
-          email
+          email,
         },
         {
           $ADD: {
-            purchase: +coin
-          }
+            purchase: +coin,
+          },
         }
       );
       const userMeta = await User.get(email);
@@ -321,14 +321,14 @@ export const postPayment = async (req, res) => {
           "Thank you for your purchase. " +
           "The invoice was sent to your email. Please check ",
         purchase: userMeta.purchase,
-        receipt: `${charge.receipt_url}`
+        receipt: `${charge.receipt_url}`,
       });
     } else {
       const userMeta = await User.get(email);
       res.render("payment", {
         pageTitle: "Payment",
         message: "Failed to charge",
-        purchase: userMeta.purchase
+        purchase: userMeta.purchase,
       });
     }
   } catch (err) {
@@ -337,7 +337,7 @@ export const postPayment = async (req, res) => {
     res.render("payment", {
       pageTitle: "Payment",
       message: "Failed to charge",
-      purchase: userMeta.purchase
+      purchase: userMeta.purchase,
     });
   }
 };

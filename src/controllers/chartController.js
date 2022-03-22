@@ -12,7 +12,7 @@ const LOCATIONLIST = [
   "ASIA(EAST)",
   "ASIA(SOUTHEAST)",
   "INDIA",
-  "AMERICA(SOUTH)"
+  "AMERICA(SOUTH)",
 ];
 
 export const getChart = async (req, res) => {
@@ -30,16 +30,13 @@ export const getChart = async (req, res) => {
     hours = uri[5];
   }
   const delay = Number(hours) + 9;
-  const hour = moment()
-    .subtract(delay, "hours")
-    .format()
-    .split("+")[0];
+  const hour = moment().subtract(delay, "hours").format().split("+")[0];
   const url = decodeURIComponent(uri[3]);
   const hashList = [];
   const resultList = [];
   try {
     // let userMeta = await User.get(email);
-    LOCATIONLIST.forEach(location => {
+    LOCATIONLIST.forEach((location) => {
       const hash = Buffer.from(
         process.env.SECRET + email + url + location
       ).toString("base64");
@@ -58,7 +55,7 @@ export const getChart = async (req, res) => {
     console.log(err);
   }
 
-  const getData = hash => {
+  const getData = (hash) => {
     return new Promise((resolve, reject) => {
       Url.query("id")
         .eq(hash)

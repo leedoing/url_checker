@@ -15,7 +15,7 @@
     .chart__containers
         #chart__circle
     if !loggedUser
-        .chart__container(id=`support@url-checker.com||https://url-checker-sample.s3.ap-northeast-2.com/4kb||3`)
+        .chart__container(id=`urlschecker@gmail.com||https://url-checker-sample.s3.ap-northeast-2.com/4kb||3`)
     else if urls
         .chart__container(id=`${loggedUser.email}||${urls[0].url}||3`)
         //- span=loggedUser.email

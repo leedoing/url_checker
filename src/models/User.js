@@ -4,11 +4,11 @@ import "../db";
 const UserSchema = new dynamoose.Schema({
   email: {
     type: String,
-    hashKey: true
+    hashKey: true,
   },
   passwd: {
     type: String,
-    required: true
+    required: true,
   },
   salt: String,
   purchase: Number,
@@ -16,9 +16,9 @@ const UserSchema = new dynamoose.Schema({
     {
       name: String,
       url: String,
-      deadLine: String
-    }
-  ]
+      deadLine: String,
+    },
+  ],
 });
 const model = dynamoose.model("url_checker_users", UserSchema);
 

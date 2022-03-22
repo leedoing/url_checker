@@ -11,12 +11,12 @@ const checkUrl = async (name, url, month) => {
   const encodeUrl = encodeURIComponent(url);
   const response = await axios({
     url: `/api/${encodeName}/${encodeUrl}/${month}/add`,
-    method: "post"
+    method: "post",
   });
   return response.data;
 };
 
-const clickSubmitAddBtn = async event => {
+const clickSubmitAddBtn = async (event) => {
   event.preventDefault();
   const inputUrl = addUrlForm.querySelector("#jsInputUrl");
   const inputName = addUrlForm.querySelector("#jsInputName");
@@ -24,10 +24,11 @@ const clickSubmitAddBtn = async event => {
   const url = inputUrl.value;
   const name = inputName.value;
   const month = inputMonth.value;
-  const regexUrl = /^((http(s?))\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
+  const regexUrl =
+    /^((http(s?))\:\/\/)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?$/;
   if (name.length < 1) {
     document.getElementsByClassName("jsDivFileSize")[0].innerText =
-      "Please Input Name";
+      "Please input value";
     document.querySelector(".jsDivFileSize").style.display = "";
     document.querySelector(".jsDivUrlFormat").style.display = "none";
     document.querySelector(".jsDivMonthFormat").style.display = "none";
@@ -54,21 +55,20 @@ const clickSubmitAddBtn = async event => {
         }, 1000);
       } else {
         alert("Sorry, Please check a message");
-        document.getElementsByClassName(
-          "jsDivFileSize"
-        )[0].innerText = response;
+        document.getElementsByClassName("jsDivFileSize")[0].innerText =
+          response;
         document.querySelector(".jsDivFileSize").style.display = "";
       }
     }
   }
 };
 
-const clickAddUrl = event => {
+const clickAddUrl = (event) => {
   event.preventDefault();
   document.querySelector(".bg-modal").style.display = "flex";
 };
 
-const clickCloseAddUrl = event => {
+const clickCloseAddUrl = (event) => {
   event.preventDefault();
   document.querySelector(".bg-modal").style.display = "none";
   document.querySelector(".jsDivUrlFormat").style.display = "none";
@@ -79,7 +79,7 @@ const clickCloseAddUrl = event => {
 const createMessage = () => {
   const divUrlFormat = document.createElement("div");
   divUrlFormat.setAttribute("class", "jsDivUrlFormat");
-  divUrlFormat.innerHTML = "Please check URL format!";
+  divUrlFormat.innerHTML = "Please check URL";
   modalContents.appendChild(divUrlFormat);
   document.querySelector(".jsDivUrlFormat").style.display = "none";
 
@@ -91,7 +91,7 @@ const createMessage = () => {
 
   const divMonthFormat = document.createElement("div");
   divMonthFormat.setAttribute("class", "jsDivMonthFormat");
-  divMonthFormat.innerHTML = "Please check month (min:1 / max:12)";
+  divMonthFormat.innerHTML = "Please check month (min:1 / max:60)";
   modalContents.appendChild(divMonthFormat);
   document.querySelector(".jsDivMonthFormat").style.display = "none";
 };

@@ -13,11 +13,11 @@ export const home = async (req, res) => {
         pageTitle: "Home",
         email: userMeta.email,
         urls: userMeta.urls,
-        purchase: userMeta.purchase
+        purchase: userMeta.purchase,
       });
     } else {
       const {
-        user: { email }
+        user: { email },
       } = req;
       userMeta = await User.get(email);
       if (!userMeta.purchase) {
@@ -27,7 +27,7 @@ export const home = async (req, res) => {
         pageTitle: "Home",
         email: userMeta.email,
         urls: userMeta.urls,
-        purchase: userMeta.purchase
+        purchase: userMeta.purchase,
       });
     }
   } catch (err) {
@@ -49,7 +49,7 @@ export const postCheckUrl = async (req, res) => {
     .add(month, "month")
     .format("YYYY-MM-DDTHH:mm:ss");
   try {
-    await request.head(url).on("response", response => {
+    await request.head(url).on("response", (response) => {
       statusCode = response.statusCode;
       fileSize = response.headers["content-length"] / 1024.0 / 1024.0;
     });
@@ -57,7 +57,7 @@ export const postCheckUrl = async (req, res) => {
       res.send(`Please check URL(HTTP(S) Status: ${statusCode})`);
     } else if (isNaN(fileSize)) {
       res.send(`Can't get a content-length header. Please check URL!`);
-    } else if (fileSize > 2) {
+    } else if (fileSize > 10) {
       res.send(
         `You uploaded more than 10MB of files(${fileSize.toFixed(1)} MB)`
       );
@@ -74,14 +74,14 @@ export const postCheckUrl = async (req, res) => {
                 {
                   deadLine: deadLine,
                   name: name,
-                  url: url
-                }
+                  url: url,
+                },
               ];
             } else {
               urls = {
                 deadLine: deadLine,
                 name: name,
-                url: url
+                url: url,
               };
               data.urls.push(urls);
               urls = data.urls;
@@ -91,10 +91,10 @@ export const postCheckUrl = async (req, res) => {
               {
                 $PUT: {
                   purchase: data.purchase - month,
-                  urls: urls
-                }
+                  urls: urls,
+                },
               },
-              function(err) {
+              function (err) {
                 if (err) {
                   console.log(err);
                 }
@@ -102,7 +102,7 @@ export const postCheckUrl = async (req, res) => {
             );
             res.send({
               result: true,
-              comment: `Complited. You can check after 5min! (DeadLine: ${deadLine})`
+              comment: `Complited. You can check after 5min! (DeadLine: ${deadLine})`,
             });
           }
         }
@@ -115,7 +115,7 @@ export const postCheckUrl = async (req, res) => {
 
 export const postDelUrl = async (req, res) => {
   const {
-    params: { name, url }
+    params: { name, url },
   } = req;
   let urls;
   User.get({ email: name }, (err, data) => {
@@ -133,10 +133,10 @@ export const postDelUrl = async (req, res) => {
           { email: name },
           {
             $PUT: {
-              urls: urls
-            }
+              urls: urls,
+            },
           },
-          function(err) {
+          function (err) {
             if (err) {
               console.log(err);
             }
